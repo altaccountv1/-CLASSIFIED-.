@@ -24,6 +24,6 @@ local allowed = {
 
 }
 
-if not table.find(allowed, plr.UserId) then
-  plr:Kick()
+if not table.find(allowed, game.Players.LocalPlayer.UserId) then
+  game.Players.LocalPlayer:Kick()
 end
