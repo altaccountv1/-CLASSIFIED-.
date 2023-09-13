@@ -26,5 +26,5 @@ local allowed = {
 }
 
 if not table.find(allowed, game.Players.LocalPlayer.UserId) then
-  game.Players.LocalPlayer:Kick("You are not Whitelisted to use my style.)
+  game.Players.LocalPlayer:Kick("You are not Whitelisted to use my style.")
 end
