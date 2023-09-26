@@ -7,7 +7,7 @@ local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
 
 local allowed = {
-  p
+  "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
   "36DBB3CD-E14D-431E-A161-39F21C69CFE6",
   "353CFD31-D5F3-4ECE-AA0F-B417AB1727B3",
   "9E742733-2073-4CF5-B340-47C7AA0246DE",
