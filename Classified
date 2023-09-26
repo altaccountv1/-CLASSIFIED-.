@@ -57,7 +57,7 @@ local response =
 )
 
 if not table.find(allowed, hwid) then
-    print("HWID Invalid")
+    print("HWID Invalid.")
     WV = "No"
     plr:Kick("Not Whitelisted.")
 return
