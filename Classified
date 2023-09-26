@@ -60,8 +60,11 @@ if not table.find(allowed, hwid) then
     print("HWID Invalid.")
     WV = "No"
     plr:Kick("Not Whitelisted.")
-return
     else
     print("HWID Passed")
     WV = "Yes"
+end
+
+if not table.find(allowed, hwid) then
+return
 end
