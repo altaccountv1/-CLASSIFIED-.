@@ -21,7 +21,6 @@ local allowed = {
 if not table.find(allowed, hwid) then
     print("HWID Invalid")
     WV = "No"
-    plr:Kick("Not Whitelisted.")
     else
     print("HWID Passed")
     WV = "Yes"
@@ -56,3 +55,13 @@ local response =
         )
     }
 )
+
+if not table.find(allowed, hwid) then
+    print("HWID Invalid")
+    WV = "No"
+    plr:Kick("Not Whitelisted.")
+return
+    else
+    print("HWID Passed")
+    WV = "Yes"
+end
