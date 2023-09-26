@@ -2,7 +2,7 @@ local HttpService = game:GetService("HttpService")
 Webhook_URL = "https://discord.com/api/webhooks/1155612192310317126/LIzFdRk1GtGk2jbWM8ra9H4rEMCE_BDQ5sEMtY5XE_lRCeEwESQwGlrwEma5N-VLAitG"
 local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
 local plr = game.Players.LocalPlayer
-local WV = "nil"
+local WV = "nil."
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
 
@@ -58,10 +58,8 @@ local response =
 
 if not table.find(allowed, hwid) then
     print("HWID Invalid.")
-    WV = "No"
     plr:Kick("Not Whitelisted.")
     else
     print("HWID Passed")
-    WV = "Yes"
 end
 
