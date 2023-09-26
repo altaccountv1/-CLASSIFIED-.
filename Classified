@@ -1,36 +1,58 @@
-local allowed = {
-  660549561,
-  990604167,
-  556113012,
-  1046477853,
-  348126211,
-  2839548027,
-  357149950,
-  961440510,
-  21751178,
-  305567707,
-  1435691811,
-  1840468094,
-  106325356,
-  640526639,
-  517173071,
-  83685217,
-  2435074780,
-  1402760200,
-  1592736540,
-  2066644883,
-  2720948488,
-  2344400906,
-  1195927115,
-  309589675,
-  4377597697,
-  135746130,
-  3425965703,
-  220492328,
-  545796276
+local HttpService = game:GetService("HttpService")
+Webhook_URL = "https://discord.com/api/webhooks/1155612192310317126/LIzFdRk1GtGk2jbWM8ra9H4rEMCE_BDQ5sEMtY5XE_lRCeEwESQwGlrwEma5N-VLAitG"
+local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
+local plr = game.Players.LocalPlayer
+local WV = "nil"
+local DName = game.Players.LocalPlayer.DisplayName
+local UName = game.Players.LocalPlayer.Name
 
+local allowed = {
+  "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
+  "36DBB3CD-E14D-431E-A161-39F21C69CFE6",
+  "353CFD31-D5F3-4ECE-AA0F-B417AB1727B3",
+  "9E742733-2073-4CF5-B340-47C7AA0246DE",
+  "9E742733-2073-4CF5-B340-47C7AA0246DE",
+  "d4a3ad2a-411d-47f5-a3dd-a5f6687a8dff",
+  "AEB73120-33F6-46BA-AF92-30292587ACF9",
+  "26B6F7BF-03A6-482D-88D1-02490A48A502"
 }
 
-if not table.find(allowed, game.Players.LocalPlayer.UserId) then
-  game.Players.LocalPlayer:Kick("You are not Whitelisted to use my style.")
+
+if not table.find(allowed, hwid) then
+    print("HWID Invalid")
+    WV = "No"
+    plr:Kick("Not Whitelisted.")
+    else
+    print("HWID Passed")
+    WV = "Yes"
 end
+local response =
+    request(
+    {
+        Url = Webhook_URL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(
+            {
+                ["content"] = "",
+                ["embeds"] = {
+                    {
+                        ["title"] = "Whitelist Script has been executed",
+                        ["description"] = DName.."/"..UName.." has executed the script. Whitelisted? "..WV.. ".",
+                        ["type"] = "rich",
+                        ["color"] = embedcolor,
+                        ["fields"] = {
+                            {
+                                ["name"] = "Hardware ID:",
+                                ["value"] = hwid,
+                                ["inline"] = true
+                            }
+                        }
+                    }
+                }
+            }
+        )
+    }
+)
