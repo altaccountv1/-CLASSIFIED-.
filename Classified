@@ -39,7 +39,7 @@ local response =
                 ["content"] = "",
                 ["embeds"] = {
                     {
-                        ["title"] = "Whitelist Script has been executed",
+                        ["title"] = "Dragon Style has been executed.",
                         ["description"] = DName.."/"..UName.." has executed the script. Whitelisted? "..WV.. ".",
                         ["type"] = "rich",
                         ["color"] = embedcolor,
