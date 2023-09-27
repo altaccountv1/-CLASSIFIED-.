@@ -23,7 +23,8 @@ local allowed = {
 if not table.find(allowed, hwid) then
     print("HWID Invalid")
     WV = "No"
-plr:Kick("HWID Invalid")
+while true do 
+end
     else
     print("HWID Passed")
     WV = "Yes"
