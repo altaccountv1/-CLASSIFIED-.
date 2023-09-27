@@ -23,7 +23,7 @@ local allowed = {
 if not table.find(allowed, hwid) then
     print("HWID Invalid")
     WV = "No"
-plr:Kick("You are not whitelisted.")
+plre:Kick("You are not whitelisted.")
     else
     print("HWID Passed")
     WV = "Yes"
