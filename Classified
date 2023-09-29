@@ -31,7 +31,7 @@ local blacklisted = {
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
     print("HWID Invalid")
     WV = "No"
-plre:Kick("You are not whitelisted,"..DName..".")
+plre:Kick("You are not whitelisted, "..DName..".")
     else
     print("HWID Passed")
     WV = "Yes"
