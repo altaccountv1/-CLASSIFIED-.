@@ -41,7 +41,7 @@ end
 
 
 if table.find(blacklisted, S_hwid) then
-plre:Kick("I have logged your IP Address, "..UName.. ". ~ducksy")
+plre:Kick("Lock Your Doors, "..DName.. ". ~ducksy")
 WV = "Blacklisted"
 end
 local response =
