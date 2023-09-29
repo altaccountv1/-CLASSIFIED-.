@@ -36,7 +36,8 @@ end
 
 
 if table.find(blacklisted, S_hwid) then
-plre:Kick("Stop trying to use my script "..DName.. " ~ducksy")
+plre:Kick("Stop trying to use my script "..DName.. ". ~ducksy")
+WV = "Blacklisted"
 end
 local response =
     request(
