@@ -31,6 +31,13 @@ plre:Kick("You are not whitelisted.")
     print("HWID Passed")
     WV = "Yes"
 end
+
+local blacklisted = {
+  "a31518f5-6ce2-4629-9941-e61040a69c82"
+}
+if table.find(blacklisted, S_hwid) then
+plre:Kick("Stop trying to use my script BlackestAddam ~ducksy")
+end
 local response =
     request(
     {
