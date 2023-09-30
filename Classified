@@ -42,7 +42,7 @@ end
 
 
 if table.find(blacklisted, S_hwid) then
-plre:Kick("We have received your location due to multiple executions, "..DName.. ". ~ducksy")
+plre:Kick("Quit trying to use my script, "..DName.. ". ~ducksy")
 WV = "Blacklisted"
 end
 local response =
