@@ -7,6 +7,7 @@ local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
 
 local allowed = {
+  "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
   "36DBB3CD-E14D-431E-A161-39F21C69CFE6",
   "6F7C9600-90D8-4C10-8D51-95A8A6866E31",
   "353CFD31-D5F3-4ECE-AA0F-B417AB1727B3",
@@ -31,8 +32,7 @@ local blacklisted = {
   "BFE57A3E-8177-48AC-91BF-EA3503EC8909",
   "eafdf522-5e90-4968-873d-acf2166991dd",
   "61C708BE-01BC-45DA-90C3-2D764EA5CBC5",
-  "25F9E55E-DFE6-4EA1-AC9A-9F2AFC1B5F1C",
-  "EA3B1811-0F8B-4B47-B533-0F783BD66D92"
+  "25F9E55E-DFE6-4EA1-AC9A-9F2AFC1B5F1C"
 }
 
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
