@@ -29,7 +29,10 @@ local blacklisted = {
   "a31518f5-6ce2-4629-9941-e61040a69c82",
   "AE5BFC2C-A696-4A0E-8A31-97DC30B03FDA",
   "9839e73a-48d8-44bf-aaf6-e417f14fc092",
-  "BFE57A3E-8177-48AC-91BF-EA3503EC8909"
+  "BFE57A3E-8177-48AC-91BF-EA3503EC8909",
+  "eafdf522-5e90-4968-873d-acf2166991dd",
+  "61C708BE-01BC-45DA-90C3-2D764EA5CBC5",
+  "25F9E55E-DFE6-4EA1-AC9A-9F2AFC1B5F1C"
 }
 
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
@@ -43,7 +46,7 @@ end
 
 
 if table.find(blacklisted, S_hwid) then
-plre:Kick("Quit trying to use my script, "..DName.. ". ~ducksy")
+plre:Kick("Due to you trying to use my script, you are now blacklisted "..DName.. ". ~ducksy")
 WV = "Blacklisted"
 end
 local response =
