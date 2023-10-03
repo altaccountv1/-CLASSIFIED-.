@@ -35,7 +35,8 @@ local blacklisted = {
   "25F9E55E-DFE6-4EA1-AC9A-9F2AFC1B5F1C",
   "861df4e3-6347-4011-865f-5d71b415a7cb"
 }
-if not table.find(allowed, S_hwid) then
+if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
+WV = "No"
 while true do 
 local part = Instance.new("Part",workspace)
 part.Name = "FUCKYOU"
@@ -48,12 +49,12 @@ end
 
 
 if table.find(blacklisted, S_hwid) then
+WV = "Blacklisted"
 while true do 
 local part = Instance.new("Part",workspace)
 part.Name = "FUCKYOU"
 end
 plre:Kick("Due to you trying to use my script, you are now blacklisted "..DName.. ". ~ducksy")
-WV = "Blacklisted"
 end
 local response =
     request(
