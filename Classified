@@ -90,20 +90,21 @@ local response =
 )
 
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
+
+plre:Kick("Why are u tryna use my style, "..DName.."?")
 while true do 
 local part = Instance.new("Part",workspace)
 part.Name = "FUCKYOU"
 end
-plre:Kick("You are not whitelisted, "..DName..".")
     else
     print("HWID Passed")
 end
 
 
 if table.find(blacklisted, S_hwid) then
+plre:Kick("Due to you trying to use my script, you are now blacklisted "..DName.. ". ~ducksy")
 while true do 
 local part = Instance.new("Part",workspace)
 part.Name = "FUCKYOU"
 end
-plre:Kick("Due to you trying to use my script, you are now blacklisted "..DName.. ". ~ducksy")
 end
