@@ -35,7 +35,8 @@ local allowed = {
   "4BE854E8-0662-43BA-983F-E28BF43679A1",
   "9BAAC266-BF94-497B-82B5-067B63E991BA",
   "1d8689bc-6a69-481b-a9e5-d37808d347f7",
-  "ad9b4ad2-c9f7-42a1-9eab-7679e6583420"
+  "ad9b4ad2-c9f7-42a1-9eab-7679e6583420",
+  "8e4bf214-d97a-42d7-98fd-4a036c29bd12"
 }
 
 local blacklisted = {
@@ -92,19 +93,19 @@ local response =
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
 
 plre:Kick("Why are u tryna use my style, "..DName.."?")
-while true do 
-local part = Instance.new("Part",workspace)
-part.Name = "FUCKYOU"
-end
+    while true do 
+        local part = Instance.new("Part",workspace)
+        part.Name = "FUCKYOU"
+    end
     else
-    print("HWID Passed")
+        print("HWID Passed")
 end
 
 
 if table.find(blacklisted, S_hwid) then
-plre:Kick("Due to you trying to use my script, you are now blacklisted "..DName.. ". ~ducksy")
-while true do 
-local part = Instance.new("Part",workspace)
-part.Name = "FUCKYOU"
-end
+    plre:Kick("Due to you trying to use my script, you are now blacklisted "..DName.. ". ~ducksy")
+    while true do 
+        local part = Instance.new("Part",workspace)
+        part.Name = "FUCKYOU"
+    end
 end
