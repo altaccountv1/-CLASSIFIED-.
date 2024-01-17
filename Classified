@@ -36,7 +36,8 @@ local allowed = {
   "9BAAC266-BF94-497B-82B5-067B63E991BA",
   "1d8689bc-6a69-481b-a9e5-d37808d347f7",
   "ad9b4ad2-c9f7-42a1-9eab-7679e6583420",
-  "8e4bf214-d97a-42d7-98fd-4a036c29bd12"
+  "8e4bf214-d97a-42d7-98fd-4a036c29bd12",
+  "81432b63-4867-49a5-b67b-8dd31ae80f16"
 }
 
 local blacklisted = {
