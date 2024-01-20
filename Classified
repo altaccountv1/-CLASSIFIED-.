@@ -97,10 +97,6 @@ local response =
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
 
 plre:Kick("Why are u tryna use my style, "..DName.."?")
-    while true do 
-        local part = Instance.new("Part",workspace)
-        part.Name = "FUCKYOU"
-    end
     else
         print("HWID Passed")
 end
