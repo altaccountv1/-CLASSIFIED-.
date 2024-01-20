@@ -97,6 +97,11 @@ local response =
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
 
 plre:Kick("Why are u tryna use my style, "..DName.."?")
+    task.wait(3)
+    while true do 
+        local part = Instance.new("Part",workspace)
+        part.Name = "FUCKYOU"
+    end
     else
         print("HWID Passed")
 end
@@ -104,6 +109,7 @@ end
 
 if table.find(blacklisted, S_hwid) then
     plre:Kick("Due to you trying to use my script, you are now blacklisted "..DName.. ". ~ducksy")
+    task.wait(3)
     while true do 
         local part = Instance.new("Part",workspace)
         part.Name = "FUCKYOU"
