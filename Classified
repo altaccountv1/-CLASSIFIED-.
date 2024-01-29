@@ -51,16 +51,18 @@ local blacklisted = {
   "eafdf522-5e90-4968-873d-acf2166991dd",
   "61C708BE-01BC-45DA-90C3-2D764EA5CBC5",
   "25F9E55E-DFE6-4EA1-AC9A-9F2AFC1B5F1C",
-  "861df4e3-6347-4011-865f-5d71b415a7cb"
+  "861df4e3-6347-4011-865f-5d71b415a7cb",
+  "6cadd52e-bc02-4a22-be69-067530637b3a"
 }
 
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
-WV = "No"
+  WV = "No"
 else
-WV = "Yes"
+  WV = "Yes"
 end 
+
 if table.find(blacklisted, S_hwid) then
-WV = "Blacklisted"
+  WV = "Blacklisted"
 end
 
 local response =
@@ -95,14 +97,13 @@ local response =
 )
 
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
-
-plre:Kick("Why are u tryna use my style, "..DName.."?")
+  plre:Kick("Why are u tryna use my style, "..DName.."?")
     task.wait(3)
-    while true do 
+     while true do 
         local part = Instance.new("Part",workspace)
         part.Name = "FUCKYOU"
     end
-    else
+else
         print("HWID Passed")
 end
 
