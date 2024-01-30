@@ -55,6 +55,10 @@ local blacklisted = {
   "6cadd52e-bc02-4a22-be69-067530637b3a"
 }
 
+local degenerate = {
+  "fed9da60-b382-4c68-8f8f-3fa2255e6598"
+}
+
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
   WV = "No"
 else
@@ -64,6 +68,7 @@ end
 if table.find(blacklisted, S_hwid) then
   WV = "Blacklisted"
 end
+
 
 local response =
     request(
@@ -114,5 +119,11 @@ if table.find(blacklisted, S_hwid) then
     while true do 
         local part = Instance.new("Part",workspace)
         part.Name = "FUCKYOU"
+    end
+end
+
+if table.find(degenerate, S_hwid) then
+    plre:Kick("Give up, you cannot use this, now fuck off")
+    while true do
     end
 end
