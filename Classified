@@ -103,15 +103,10 @@ local response =
     }
 )
 
-if WV == "No" then
-  plre:Kick("Why are u tryna use my style, "..DName.."?")
-elseif WV == "Blacklisted" then
-    plre:Kick("Due to you trying to use my script, you are now blacklisted "..DName.. ". ~ducksy")
-    task.wait()
-    while true do 
-        local part = Instance.new("Part",workspace)
-        part.Name = "FUCKYOU"
-    end
+if WV == "Yes" then
+  return
 else
-    print("Hwid passed")
+  plre:Kick("You are not whitelisted")
 end
+
+
