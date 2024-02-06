@@ -6,6 +6,7 @@ local WV = "nil."
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
 
+
 local allowed = {
   "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
   "36DBB3CD-E14D-431E-A161-39F21C69CFE6",
@@ -40,7 +41,8 @@ local allowed = {
   "81432b63-4867-49a5-b67b-8dd31ae80f16",
   "457199d4-a8a1-4175-b0e0-a0eb713bc989",
   "216db83c-6729-434c-8a77-22cd5c693fc5",
-  "3b9746d8-8b5a-4982-976a-8fee7acfae4a"
+  "3b9746d8-8b5a-4982-976a-8fee7acfae4a",
+  "338698e1-d138-4a58-a28b-90a6b82a9299"
 }
 
 local blacklisted = {
