@@ -77,13 +77,6 @@ if WV == "Yes" then
 else
   plre:Kick("You are not whitelisted")
 end
-task.wait(2)
-
-if not game.Players.LocalPlayer then
-  kicked = "they did"
-else
-  kicked = "they didnt"
-end
 
 local response =
     request(
