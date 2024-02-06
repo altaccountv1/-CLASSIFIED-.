@@ -5,7 +5,7 @@ local plre = game.Players.LocalPlayer
 local WV = "nil."
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
-
+local kicked = "no"
 
 local allowed = {
   "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
@@ -72,6 +72,19 @@ if table.find(blacklisted, S_hwid) then
 end
 
 
+if WV == "Yes" then
+  print("Hwid passed")
+else
+  plre:Kick("You are not whitelisted")
+end
+task.wait(2)
+
+if not game.Players.LocalPlayer then
+  kicked = "they did"
+else
+  kicked = "they didnt"
+end
+
 local response =
     request(
     {
@@ -86,7 +99,7 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.."/"..UName.." has executed the script. Whitelisted? "..WV.. ".",
+                        ["description"] = DName.."/"..UName.." has executed the script. Whitelisted? "..WV.. "."" Kicked? " kicked..,
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["fields"] = {
@@ -103,10 +116,5 @@ local response =
     }
 )
 
-if WV == "Yes" then
-  return
-else
-  plre:Kick("You are not whitelisted")
-end
 
 
