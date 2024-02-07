@@ -5,7 +5,6 @@ local plre = game.Players.LocalPlayer
 local WV = "nil."
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
-local kicked = "no"
 
 local allowed = {
   "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
@@ -91,7 +90,7 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.."/"..UName.." has executed the script. Whitelisted? "..WV.. "."" Kicked? " kicked..,
+                        ["description"] = DName.."/"..UName.." has executed the script. Whitelisted? "..WV.. ".",
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["fields"] = {
