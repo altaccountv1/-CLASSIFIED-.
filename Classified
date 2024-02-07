@@ -68,6 +68,12 @@ elseif table.find(allowed, S_hwid) then
   WV = "Yes"
 end
 
+if WV == "Yes" then
+  print("Hwid passed")
+else
+  plre:Kick("You are not whitelisted")
+end
+
 local response =
     request(
     {
@@ -98,14 +104,3 @@ local response =
         )
     }
 )
-
-
-if WV == "Yes" then
-  print("Hwid passed")
-else
-  plre:Kick("You are not whitelisted")
-  while true do
-    local part = Instance.new("Part", workspace)
-    part.Name = "FUCKYOU"
-  end
-end
