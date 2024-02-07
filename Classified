@@ -63,12 +63,10 @@ local degenerate = {
 
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
   WV = "No"
-else
-  WV = "Yes"
-end 
-
-if table.find(blacklisted, S_hwid) then
+elseif table.find(blacklisted, S_hwid) then
   WV = "Blacklisted"
+elseif table.find(allowed, S_hwid) then
+  WV = "Yes"
 end
 
 
@@ -78,6 +76,7 @@ else
   plre:Kick("You are not whitelisted")
 end
 
+task.wait(1)
 local response =
     request(
     {
