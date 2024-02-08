@@ -68,41 +68,13 @@ elseif table.find(allowed, S_hwid) then
   _G.WV = "Yes"
 end
 
-local response =
-    request(
-    {
-        Url = Webhook_URL,
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = HttpService:JSONEncode(
-            {
-                ["content"] = "",
-                ["embeds"] = {
-                    {
-                        ["title"] = "Dragon Style has been executed.",
-                        ["description"] = tostring(DName.."/"..UName.." has executed the script. Whitelisted? ".._G.WV.. "."),
-                        ["type"] = "rich",
-                        ["color"] = embedcolor,
-                        ["fields"] = {
-                            {
-                                ["name"] = "Hardware ID:",
-                                ["value"] = S_hwid,
-                                ["inline"] = true
-                            }
-                        }
-                    }
-                }
-            }
-        )
-    }
-)
+
 
 if _G.WV == "Yes" then
   print("Hwid passed")
 else
   plre:Kick("You are not whitelisted")
+_G.kicked = true
 end
 
 
