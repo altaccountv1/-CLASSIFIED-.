@@ -94,13 +94,13 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.."/"..UName.." has executed the script."..kicked.. "kicked.",
+                        ["description"] = DName.."/"..UName.." has executed the script."..tostring(kicked).. "kicked.",
                         ["type"] = "rich",
                         ["fields"] = {
                            {
                         ["name"] = "Hardware id",
                         ["value"] = S_hwid,
-                        ["inline"] = true
+                        ["inline"] = "true"
                            }
                         }
                     }
