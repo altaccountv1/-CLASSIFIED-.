@@ -64,8 +64,10 @@ local degenerate = {
 
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
   WV = "No"
+  kicked = "They weren't"
 elseif table.find(blacklisted, S_hwid) then
   WV = "Blacklisted"
+  kicked = "They were"
 elseif table.find(allowed, S_hwid) then
   WV = "Yes"
 end
@@ -74,10 +76,8 @@ end
 
 if WV == "Yes" then
   print("Hwid passed")
-  kicked = "not kicked"
 else
   plre:Kick("You are not whitelisted")
-  kicked = "kicked"
 end
 
 local response =
@@ -94,9 +94,14 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.."/"..UName.." has executed the script. They were.",
+                        ["description"] = DName.."/"..UName.." has executed the script."..kicked.. "kicked.",
                         ["type"] = "rich",
                         ["fields"] = {
+                           {
+                        ["name"] = "Hardware id",
+                        ["value"] = S_hwid,
+                        ["inline"] = true
+                           }
                         }
                     }
                 }
