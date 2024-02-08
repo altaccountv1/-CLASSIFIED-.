@@ -87,7 +87,7 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = "e"
+                        ["description"] = "e",
                         ["type"] = "rich",
                         ["fields"] = {
                            {
