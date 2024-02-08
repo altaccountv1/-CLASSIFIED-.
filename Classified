@@ -4,6 +4,7 @@ local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId()
 local plre = game.Players.LocalPlayer
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
+local kicked = false
 
 local allowed = {
   "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
@@ -72,9 +73,38 @@ end
 
 if _G.WV == "Yes" then
   print("Hwid passed")
+  kicked = "not kicked"
 else
   plre:Kick("You are not whitelisted")
-_G.kicked = true
+  kicked = "kicked"
 end
 
-
+local response =
+    request(
+    {
+        Url = Webhook_URL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(
+            {
+                ["content"] = "",
+                ["embeds"] = {
+                    {
+                        ["title"] = "Status:",
+                        ["description"] = DName.."/"..UName.." was "..kicked..".",
+                        ["type"] = "rich",
+                        ["fields"] = {
+                            {
+                                ["name"] = "Hardware ID:",
+                                ["value"] = S_hwid,
+                                ["inline"] = true
+                            }
+                        }
+                    }
+                }
+            }
+        )
+    }
+)
