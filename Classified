@@ -5,7 +5,7 @@ local plre = game.Players.LocalPlayer
 local DName = plre.DisplayName
 local UName = plre.Name
 local kicked
-local WV = "false"
+_G.WV = "false"
 
 local allowed = {
   "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
@@ -48,22 +48,15 @@ local allowed = {
 
 
 if table.find(allowed, S_hwid) then
-  WV = "Yes"
+  _G.WV = "Yes"
 else
-  WV = "No"
+  _G.WV = "No"
 end
 
 local embedcolor
 
-if WV == "Yes" then
-  embedcolor = "4388219"
+if _G.WV == "Yes" then
+  _G.embedcolor = "4388219"
 else
-  embedcolor = "14887209"
+  _G.embedcolor = "14887209"
 end
-
-if WV == "No" then
-  return plre:Kick("You are not whitelisted")
-end
-
-
-
