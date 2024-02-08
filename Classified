@@ -61,40 +61,9 @@ else
   embedcolor = "14887209"
 end
 
-local response =
-    request(
-    {
-        Url = Webhook_URL,
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = HttpService:JSONEncode(
-            {
-                ["content"] = "",
-                ["embeds"] = {
-                    {
-                        ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Whitelist Value** \n"..WV.. "\n **UserId** \n "..tostring(plre.UserId),
-                        ["type"] = "rich",
-                        ["color"] = embedcolor,
-                        ["fields"] = {
-                           {
-                        ["name"] = "Hardware Id",
-                        ["value"] = S_hwid,
-                        ["inline"] = true
-                           }
-                        }
-                    }
-                }
-            }
-        )
-    }
-)
-
-if WV == "Yes" then
-  return print("Passed")
+if WV == "No" then
+  return plre:Kick("You are not whitelisted")
 end
 
-plre:Kick("You are not whitelisted")
+
 
