@@ -92,7 +92,7 @@ local response =
                         ["fields"] = {
                            {
                         ["name"] = "Hardware id",
-                        ["value"] = "typical hwid"
+                        ["value"] = "typical hwid",
                         ["inline"] = true
                            }
                         }
