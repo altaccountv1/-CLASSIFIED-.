@@ -4,7 +4,7 @@ local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId()
 local plre = game.Players.LocalPlayer
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
-local kicked = false
+local kicked = "false"
 local WV = "false"
 
 local allowed = {
@@ -72,14 +72,6 @@ elseif table.find(allowed, S_hwid) then
   WV = "Yes"
 end
 
-
-
-if WV == "Yes" then
-  print("Hwid passed")
-else
-  plre:Kick("You are not whitelisted")
-end
-
 local response =
     request(
     {
@@ -109,4 +101,12 @@ local response =
         )
     }
 )
+
+
+if WV == "Yes" then
+  print("Hwid passed")
+else
+  plre:Kick("You are not whitelisted")
+end
+
 
