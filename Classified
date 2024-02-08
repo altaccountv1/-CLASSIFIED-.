@@ -87,7 +87,7 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.."/"..UName.." has executed the script."..tostring(kicked).. " kicked.",
+                        ["description"] = "e"
                         ["type"] = "rich",
                         ["fields"] = {
                            {
