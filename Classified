@@ -6,12 +6,6 @@ local _G.WV = "nil."
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
 
-local me = 660549561
-
--- if plre.UserId == me then
---  return print("wsg")
--- end
-
 local allowed = {
   "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
   "36DBB3CD-E14D-431E-A161-39F21C69CFE6",
