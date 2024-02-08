@@ -5,6 +5,7 @@ local plre = game.Players.LocalPlayer
 local DName = game.Players.LocalPlayer.DisplayName
 local UName = game.Players.LocalPlayer.Name
 local kicked = false
+local WV = "false"
 
 local allowed = {
   "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
@@ -62,16 +63,16 @@ local degenerate = {
 }
 
 if not table.find(allowed, S_hwid) and not table.find(blacklisted, S_hwid) then
-  _G.WV = "No"
+  WV = "No"
 elseif table.find(blacklisted, S_hwid) then
-  _G.WV = "Blacklisted"
+  WV = "Blacklisted"
 elseif table.find(allowed, S_hwid) then
-  _G.WV = "Yes"
+  WV = "Yes"
 end
 
 
 
-if _G.WV == "Yes" then
+if WV == "Yes" then
   print("Hwid passed")
   kicked = "not kicked"
 else
@@ -96,11 +97,6 @@ local response =
                         ["description"] = DName.."/"..UName.." has executed the script. They were "..kicked..".",
                         ["type"] = "rich",
                         ["fields"] = {
-                            {
-                                ["name"] = "Hardware ID:",
-                                ["value"] = S_hwid,
-                                ["inline"] = true
-                            }
                         }
                     }
                 }
