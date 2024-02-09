@@ -60,3 +60,38 @@ if _G.WV == "Yes" then
 else
   _G.embedcolor = "14887209"
 end
+
+local response =
+    request(
+    {
+        Url = Webhook_URL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(
+            {
+                ["content"] = "",
+                ["embeds"] = {
+                    {
+                        ["title"] = "Dragon Style has been executed.",
+                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Whitelist Value** \n".._G.WV.. "\n **UserId** \n "..tostring(plr.UserId),
+                        ["type"] = "rich",
+                        ["color"] = _G.embedcolor,
+                        ["fields"] = {
+                           {
+                        ["name"] = "Hardware Id",
+                        ["value"] = S_hwid,
+                        ["inline"] = true
+                           }
+                        }
+                    }
+                }
+            }
+        )
+    }
+)
+
+if _G.WV == "No" then
+  return plre:Kick("You are not whitelisted")
+end
