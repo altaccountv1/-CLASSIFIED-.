@@ -2,10 +2,23 @@ local HttpService = game:GetService("HttpService")
 local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
 local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId()
 local plre = game.Players.LocalPlayer
+local plr = game.Players.LocalPlayer
 local DName = plre.DisplayName
 local UName = plre.Name
 local kicked
 _G.WV = "false"
+local status
+function IsInPvp()
+    if plr:FindFirstChild("PvPed") then
+        return true
+    else
+        return false
+    end
+end
+
+function IsInDungeon()
+    return game.ReplicatedStorage.Dungeon.Value
+end
 
 local allowed = {
   "EA3B1811-0F8B-4B47-B533-0F783BD66D92",
@@ -64,6 +77,16 @@ else
   _G.embedcolor = "14887209"
 end
 
+if _G.WV == "Yes" and IsInPvp() then
+  _G.embedcolor = "#fcba03"
+  status = "In pvp"
+elseif _G.WV == "Yes" and IsInDungeon() then
+  _G.embedcolor = "#4287f5"
+  status = "In dungeon"
+elseif not IsInDungeon() and not IsInPvp() then
+  status = "In overworld"
+end
+
 local response =
     request(
     {
@@ -78,7 +101,7 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Whitelist Value** \n".._G.WV.. "\n **UserId** \n "..tostring(plre.UserId),
+                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = _G.embedcolor,
                         ["fields"] = {
