@@ -78,10 +78,10 @@ else
 end
 
 if _G.WV == "Yes" and IsInPvp() then
-  _G.embedcolor = "#fcba03"
+  _G.embedcolor = "16562691"
   status = "In pvp"
 elseif _G.WV == "Yes" and IsInDungeon() then
-  _G.embedcolor = "#4287f5"
+  _G.embedcolor = "4360181"
   status = "In dungeon"
 elseif not IsInDungeon() and not IsInPvp() then
   status = "In overworld"
