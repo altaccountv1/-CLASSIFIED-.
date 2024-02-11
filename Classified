@@ -26,13 +26,13 @@ local allowed = {
   "457199d4-a8a1-4175-b0e0-a0eb713bc989",
   "216db83c-6729-434c-8a77-22cd5c693fc5",
   "3b9746d8-8b5a-4982-976a-8fee7acfae4a",
-  "338698e1-d138-4a58-a28b-90a6b82a9299",
   "39ea3ed0-560d-43c1-8f69-58a52dff0d59",
   "082132bc-6962-4f01-a1e9-c2a50d79a1cb",
   "2e694c85-4fd1-434a-85f9-eb81ba7f7fa1",
   "bc665c3c-102d-4458-8c2c-916f43f342d5",
   "723d1ffe-fdaf-49d9-a60d-25a7bfe67987",
-  "de2ab0ad-5c86-44d1-bd0f-4b33e381dfb2"
+  "de2ab0ad-5c86-44d1-bd0f-4b33e381dfb2",
+  "1ef136c4-11b3-4fa2-8cf7-0fc747021538"
 }
 
 
