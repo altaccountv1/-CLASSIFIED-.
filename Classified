@@ -5,8 +5,7 @@ local plre = game.Players.LocalPlayer
 local plr = game.Players.LocalPlayer
 local DName = plre.DisplayName
 local UName = plre.Name
-local kicked
-_G.WV = "false"
+local WV = "false"
 local status
 
 function IsInPvp()
@@ -41,24 +40,24 @@ local allowed = {
 
 
 if table.find(allowed, S_hwid) then
-  _G.WV = "Yes"
+  WV = "Yes"
 else
-  _G.WV = "No"
+  WV = "No"
 end
 
 local embedcolor
 
-if _G.WV == "Yes" then
-  _G.embedcolor = "4388219"
+if WV == "Yes" then
+  embedcolor = "4388219"
 else
-  _G.embedcolor = "14887209"
+  embedcolor = "14887209"
 end
 
-if _G.WV == "Yes" and IsInPvp() then
-  _G.embedcolor = "16562691"
+if WV == "Yes" and IsInPvp() then
+  embedcolor = "16562691"
   status = "In pvp"
-elseif _G.WV == "Yes" and IsInDungeon() then
-  _G.embedcolor = "4360181"
+elseif WV == "Yes" and IsInDungeon() then
+  embedcolor = "4360181"
   status = "In dungeon"
 elseif not IsInDungeon() and not IsInPvp() then
   status = "In overworld"
@@ -80,7 +79,7 @@ local response =
                         ["title"] = "Dragon Style has been executed.",
                         ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
-                        ["color"] = _G.embedcolor,
+                        ["color"] = embedcolor,
                         ["fields"] = {
                            {
                         ["name"] = "Hardware Id",
