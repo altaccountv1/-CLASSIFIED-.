@@ -94,6 +94,6 @@ local response =
     }
 )
 
-if _G.WV == "No" then
+if WV == "No" then
   return plre:Kick("You are not whitelisted")
 end
