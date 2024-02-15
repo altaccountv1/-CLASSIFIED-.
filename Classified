@@ -34,7 +34,8 @@ local allowed = {
   "de2ab0ad-5c86-44d1-bd0f-4b33e381dfb2",
   "1ef136c4-11b3-4fa2-8cf7-0fc747021538",
   "8b3013fd-b504-429c-b7f6-eaf12ceaf59a",
-  "9507b464-0d1f-4fe2-bd44-b591deaff567"
+  "9507b464-0d1f-4fe2-bd44-b591deaff567",
+  "114c0755-873d-485b-a287-ea107a368af0"
 }
 
 
