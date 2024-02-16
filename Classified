@@ -6,7 +6,7 @@ local plr = game.Players.LocalPlayer
 local DName = plre.DisplayName
 local UName = plre.Name
 local WV = "false"
-local status
+local status = "nil"
 
 function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
@@ -67,9 +67,6 @@ elseif WV == "Yes" and IsInPvp() then
   embedcolor = "16562691"
 end
 
-if status == nil then
-    status = "nil"
-end
 local response =
     request(
     {
