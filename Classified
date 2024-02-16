@@ -44,6 +44,7 @@ if WV == "Yes" then
   embedcolor = "4388219"
 else
   embedcolor = "14887209"
+  status = "Not whitelisted"
 end
 
 
