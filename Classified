@@ -12,6 +12,14 @@ function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
 
+function IsInPvp()
+    if plr:FindFirstChild("PvPed") then
+        return true
+    else
+        return false
+    end
+end
+
 local allowed = {
   "ffca08d1-6687-4920-aa7b-f8534ea727e8",
   "457199d4-a8a1-4175-b0e0-a0eb713bc989",
@@ -54,8 +62,14 @@ if WV == "Yes" and IsInDungeon() then
 elseif WV == "Yes" and not IsInDungeon then
   status = "In overworld"
   embedcolor = "5827380"
+elseif WV == "Yes" and IsInPvp() then
+  status = "In Pvp"
+  embedcolor = "16562691"
 end
 
+if status == nil then
+    status = "nil"
+end
 local response =
     request(
     {
@@ -70,7 +84,7 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n test \n **UserId** \n "..tostring(plre.UserId),
+                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["fields"] = {
