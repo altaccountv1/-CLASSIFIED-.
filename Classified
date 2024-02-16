@@ -56,15 +56,15 @@ else
 end
 
 
-if WV == "Yes" and IsInDungeon() then
-  embedcolor = "4360181"
-  status = "In dungeon"
-elseif WV == "Yes" and not IsInDungeon then
-  status = "In overworld"
-  embedcolor = "5827380"
-elseif WV == "Yes" and IsInPvp() then
+if WV == "Yes" and IsInPvp() then
   status = "In Pvp"
   embedcolor = "16562691"
+elseif WV == "Yes" and not IsInDungeon() and not IsInPvp() then
+  status = "In overworld"
+  embedcolor = "5827380"
+elseif WV == "Yes" and IsInDungeon() then
+  embedcolor = "4360181"
+  status = "In dungeon"
 end
 
 local response =
