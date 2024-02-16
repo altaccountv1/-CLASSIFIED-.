@@ -8,14 +8,6 @@ local UName = plre.Name
 local WV = "false"
 local status
 
-function IsInPvp()
-    if plr:FindFirstChild("PvPed") then
-        return true
-    else
-        return false
-    end
-end
-
 function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
@@ -54,14 +46,13 @@ else
   embedcolor = "14887209"
 end
 
-if WV == "Yes" and IsInPvp() then
-  embedcolor = "16562691"
-  status = "In pvp"
-elseif WV == "Yes" and IsInDungeon() then
+
+if WV == "Yes" and IsInDungeon() then
   embedcolor = "4360181"
   status = "In dungeon"
-elseif not IsInDungeon() and not IsInPvp() then
+elseif WV == "Yes" and not IsInDungeon then
   status = "In overworld"
+  embedcolor = "5827380"
 end
 
 local response =
