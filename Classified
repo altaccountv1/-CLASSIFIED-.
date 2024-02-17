@@ -8,6 +8,12 @@ local UName = plre.Name
 local WV = "false"
 local status = "nil"
 
+if game.ReplicatedStorage:FindFirstChild("Alreadyran") then
+    return 
+end
+
+local alreadyran = Instance.new("BoolValue", game.ReplicatedStorage")
+alreadyran.Name = "Alreadyran"
 function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
