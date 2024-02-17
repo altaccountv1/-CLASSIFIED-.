@@ -12,7 +12,7 @@ if game.ReplicatedStorage:FindFirstChild("Alreadyran") then
     return 
 end
 
-local alreadyran = Instance.new("BoolValue", game.ReplicatedStorage")
+local alreadyran = Instance.new("BoolValue", game.ReplicatedStorage)
 alreadyran.Name = "Alreadyran"
 function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
