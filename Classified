@@ -8,6 +8,7 @@ local UName = plre.Name
 local WV = "false"
 local status = "nil"
 
+local maks = "maksimmilana22"
 if game.ReplicatedStorage:FindFirstChild("Alreadyran") then
     return 
 end
@@ -51,6 +52,7 @@ if table.find(allowed, S_hwid) then
 else
   WV = "No"
 end
+
 
 local embedcolor
 
@@ -103,6 +105,9 @@ local response =
     }
 )
 
+
 if WV == "No" then
   return plre:Kick("You are not whitelisted")
+elseif UName == maks then
+  return plr:Kick("STOP TRYING TO USE DRAGON STYLE, IT WONT WORK")
 end
