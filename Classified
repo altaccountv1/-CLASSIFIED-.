@@ -43,7 +43,8 @@ local allowed = {
   "9507b464-0d1f-4fe2-bd44-b591deaff567",
   "114c0755-873d-485b-a287-ea107a368af0",
   "e5d982cf-b937-4102-a902-0eef963b7529",
-  "886ae2f8-98e0-4e5b-82c7-e5ae21f8d4c4"
+  "886ae2f8-98e0-4e5b-82c7-e5ae21f8d4c4",
+  "90c3b960-aaca-4cec-ab5d-cc760378df92" -- gift card access
 }
 
 
