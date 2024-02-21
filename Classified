@@ -106,8 +106,8 @@ local response =
 )
 
 
-if WV == "No" then
-  return plre:Kick("You are not whitelisted")
-elseif UName == maks then
+if UName == maks then
   return plr:Kick("YOU FUCKING DEGENERATE NIGGA STOP TRYING TO USE MY STYLE YOU FUCKING FAT PIG")
+elseif WV == "No" then
+  return plre:Kick("You are not whitelisted")
 end
