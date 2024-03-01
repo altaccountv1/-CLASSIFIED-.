@@ -112,5 +112,5 @@ local response =
 if UName == maks then
   while true do end
 elseif WV == "No" then
-  return plre:Kick("You are not whitelisted") while true do end 
+  return plre:Kick("You are not whitelisted")
 end
