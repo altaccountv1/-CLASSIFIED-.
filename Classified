@@ -28,7 +28,29 @@ function IsInPvp()
 end
 
 local allowed = {
-  
+  "ffca08d1-6687-4920-aa7b-f8534ea727e8",
+  "457199d4-a8a1-4175-b0e0-a0eb713bc989",
+  "216db83c-6729-434c-8a77-22cd5c693fc5",
+  "3b9746d8-8b5a-4982-976a-8fee7acfae4a",
+  "39ea3ed0-560d-43c1-8f69-58a52dff0d59",
+  "082132bc-6962-4f01-a1e9-c2a50d79a1cb",
+  "2e694c85-4fd1-434a-85f9-eb81ba7f7fa1",
+  "bc665c3c-102d-4458-8c2c-916f43f342d5",
+  "723d1ffe-fdaf-49d9-a60d-25a7bfe67987",
+  "de2ab0ad-5c86-44d1-bd0f-4b33e381dfb2",
+  "1ef136c4-11b3-4fa2-8cf7-0fc747021538",
+  "8b3013fd-b504-429c-b7f6-eaf12ceaf59a",
+  "9507b464-0d1f-4fe2-bd44-b591deaff567",
+  "114c0755-873d-485b-a287-ea107a368af0",
+  "e5d982cf-b937-4102-a902-0eef963b7529",
+  "886ae2f8-98e0-4e5b-82c7-e5ae21f8d4c4",
+  "CF217ADB-D2FD-4B1B-ADFF-5E4C225EA9CF",
+  "94fe9485-6de5-4699-97ab-3b2633b479af",
+  "a23e5307-8a95-4f89-828a-6d546584d7ac",
+  "4fb1bc99-45e0-49c2-879a-393bd34343ab",
+  "c820c269-73b7-4a5d-80cc-eee6bab8692c",
+  "56fcb6c0-98e3-4a4b-b61c-a96a741af4cd",
+  "6196f2bc-d176-4732-80c5-e9041c439ee9"
 }
 
 local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465"}
