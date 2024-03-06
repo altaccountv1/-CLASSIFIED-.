@@ -80,7 +80,7 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Tiger Style has been executed.",
-                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
+                        ["description"] = DName.. " / "..UName.. " has executed Tiger style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["fields"] = {
