@@ -80,6 +80,8 @@ elseif WV == "Yes" and not IsInDungeon() and not IsInPvp() then
 elseif WV == "Yes" and IsInDungeon() then
   embedcolor = "4360181"
   status = "In dungeon"
+elseif WV == "No" then
+  status = "Not whitelisted"
 end
 
 local response =
