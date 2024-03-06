@@ -1,0 +1,105 @@
+local HttpService = game:GetService("HttpService")
+local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
+local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId()
+local plre = game.Players.LocalPlayer
+local plr = game.Players.LocalPlayer
+local DName = plre.DisplayName
+local UName = plre.Name
+local WV = "false"
+local status = "nil"
+
+local maks = "maksimmilana22"
+if game.ReplicatedStorage:FindFirstChild("Alreadyran") then
+    return 
+end
+
+local alreadyran = Instance.new("BoolValue", game.ReplicatedStorage)
+alreadyran.Name = "Alreadyran"
+function IsInDungeon()
+    return game.ReplicatedStorage.Dungeon.Value
+end
+
+function IsInPvp()
+    if plr:FindFirstChild("PvPed") then
+        return true
+    else
+        return false
+    end
+end
+
+local allowed = {
+  
+}
+
+local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465"}
+
+if table.find(allowed, S_hwid) then
+  WV = "Yes"
+elseif table.find(blacklisted, S_hwid) then
+  WV = "Blacklisted"
+else
+  WV = "No"
+end
+
+
+local embedcolor
+
+if WV == "Yes" then
+  embedcolor = "4388219"
+else
+  embedcolor = "14887209"
+end
+
+
+if WV == "Yes" and IsInPvp() then
+  status = "In Pvp"
+  embedcolor = "16562691"
+elseif WV == "Yes" and not IsInDungeon() and not IsInPvp() then
+  status = "In overworld"
+  embedcolor = "5827380"
+elseif WV == "Yes" and IsInDungeon() then
+  embedcolor = "4360181"
+  status = "In dungeon"
+elseif WV == "Blacklisted" then
+  status = "Blacklisted"
+elseif WV == "No" then
+  status = "Not whitelisted"
+end
+
+local response =
+    request(
+    {
+        Url = Webhook_URL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(
+            {
+                ["content"] = "",
+                ["embeds"] = {
+                    {
+                        ["title"] = "Tiger Style has been executed.",
+                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
+                        ["type"] = "rich",
+                        ["color"] = embedcolor,
+                        ["fields"] = {
+                           {
+                        ["name"] = "Hardware Id",
+                        ["value"] = S_hwid,
+                        ["inline"] = true
+                           }
+                        }
+                    }
+                }
+            }
+        )
+    }
+)
+
+
+if WV == "Blacklisted" then
+  while true do end
+elseif WV == "No" then
+  return plre:Kick("You are not whitelisted")
+end
