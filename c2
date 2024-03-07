@@ -88,9 +88,9 @@ local response =
                         ["description"] = DName.. " / "..UName.. " has executed Tiger style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
-                        ["images"] = {
-                        ["thumbnail url"] = getThumbnailForUserId(plr.UserId)
-                        },
+                        ["thumbnail"] = {
+                        ["url"] = getThumbnailFromUserId(plr.UserId)
+                        }
                         ["fields"] = {
                            {
                         ["name"] = "Hardware Id",
