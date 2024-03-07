@@ -20,11 +20,19 @@ function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
 
-local function getThumbnailForUserId(ID)
-    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..player.UserId.."&size=150x150&format=Png"
+local function getThumbnailForUserId()
+    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
     return HttpService:JSONDecode(request({Url = Link, Method = "GET"}))[1].imageUrl
 end
 
+local s, PictureUrl = pcall(function()
+	return HttpService:JSONDecode(request(Url = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png", Method = "GET")) --use api and proxy to get LINK, you can change size
+end)
+if s and PictureUrl then
+	PictureUrl=PictureUrl.data[1].imageUrl
+else
+	PictureUrl="https://t3.rbxcdn.com/9fc30fe577bf95e045c9a3d4abaca05d" --link if can't get player headshot (default img)
+end
 function IsInPvp()
     if plr:FindFirstChild("PvPed") then
         return true
@@ -88,7 +96,7 @@ local response =
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["thumbnail"] = {
-                            ["url"] = getThumbnailForUserId(plr.UserId)
+                            ["url"] = PictureUrl
                         },
                         ["fields"] = {
                            {
