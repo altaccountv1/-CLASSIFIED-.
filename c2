@@ -90,7 +90,7 @@ local response =
                         ["color"] = embedcolor,
                         ["thumbnail"] = {
                         ["url"] = getThumbnailFromUserId(plr.UserId)
-                        }
+                        },
                         ["fields"] = {
                            {
                         ["name"] = "Hardware Id",
