@@ -27,9 +27,9 @@ function IsInPvp()
     end
 end
 
-local allowed = {"11156448-fa13-4750-9d84-80f8cdbfc1ac"}
+local allowed = {"11156448-fa13-4750-9d84-80f8cdbfc1ac","6196f2bc-d176-4732-80c5-e9041c439ee9"}
 
-local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465","6196f2bc-d176-4732-80c5-e9041c439ee9"}
+local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465"}
 
 if table.find(allowed, S_hwid) then
   WV = "Yes"
