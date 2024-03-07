@@ -19,6 +19,13 @@ function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
 
+local function getThumbnailForUserId(ID)
+    local URL = 'https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={ID}&size=180x180&format=Png&isCircular=false'
+    
+    return HttpService:JSONDecode(httpService:GetAsync(URL)).imageUrl
+end
+
+
 function IsInPvp()
     if plr:FindFirstChild("PvPed") then
         return true
@@ -81,6 +88,9 @@ local response =
                         ["description"] = DName.. " / "..UName.. " has executed Tiger style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
+                        ["images"] = {
+                        ["Thumnail URL"] = getThumbnailForUserId(plr.UserId)
+                        },
                         ["fields"] = {
                            {
                         ["name"] = "Hardware Id",
