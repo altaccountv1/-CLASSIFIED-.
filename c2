@@ -22,7 +22,7 @@ end
 local function getThumbnailForUserId(ID)
     local URL = 'https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={ID}&size=180x180&format=Png&isCircular=false'
     
-    return HttpService:JSONDecode(HttpService:GetAsync(URL)).imageUrl
+    return HttpService:JSONDecode(request(URL)).imageUrl
 end
 
 
