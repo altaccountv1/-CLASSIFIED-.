@@ -89,7 +89,9 @@ local response =
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["thumbnail"] = {
+                             {
                         ["url"] = getThumbnailForUserId(plr.UserId)
+                             }
                         },
                         ["fields"] = {
                            {
