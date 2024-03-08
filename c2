@@ -19,7 +19,7 @@ alreadyran.Name = "Alreadyran"
 function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
-
+--[[
 local function getThumbnailForUserId()
     local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
     local S, Url = pcall(function()
@@ -36,7 +36,7 @@ local function getThumbnailForUserId()
     end 
     return NewUrl
 end
-
+--]]
 function IsInPvp()
     if plr:FindFirstChild("PvPed") then
         return true
@@ -99,9 +99,9 @@ local response =
                         ["description"] = DName.. " / "..UName.. " has executed Tiger style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
-                        ["thumbnail"] = {
-                            ["url"] = getThumbnailForUserId()
-                        },
+                        --["thumbnail"] = {
+                          --  ["url"] = getThumbnailForUserId()
+                        --},
                         ["fields"] = {
                            {
                         ["name"] = "Hardware Id",
