@@ -26,7 +26,7 @@ local function getThumbnailForUserId()
         return HttpService:JSONDecode(request({Url = Link, Method = "GET"}))
     end)
     local NewUrl
-    if s and Url then
+    if S and Url then
         NewUrl = HttpService:JSONDecode(request({Url = Link, Method = "GET"}))data[1].imageUrl
     else
         NewUrl = "PlaceholderImage.png"
