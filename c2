@@ -32,7 +32,7 @@ local function getThumbnailForUserId()
     end
     local NewUrl
     if S and Url then
-        NewUrl = Url["data"].imageUrl
+        NewUrl = Url
     else
         NewUrl = "PlaceholderImage.png"
     end 
