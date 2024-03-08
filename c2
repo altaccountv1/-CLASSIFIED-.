@@ -22,7 +22,16 @@ end
 
 local function getThumbnailForUserId()
     local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
-    return HttpService:JSONDecode(request({Url = Link, Method = "GET"})).data.imageUrl
+    local S, Url = pcall(function()
+        return HttpService:JSONDecode(request({Url = Link, Method = "GET"}))
+    end)
+
+    if s and Url then
+        NewUrl = HttpService:JSONDecode(request({Url = Link, Method = "GET"}))data[1].imageUrl
+    else
+        NewUrl = "PlaceholderImage.png"
+    end 
+    return NewUrl
 end
 
 function IsInPvp()
