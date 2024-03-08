@@ -25,9 +25,10 @@ local function getThumbnailForUserId()
     local S, Url = pcall(function()
         return HttpService:JSONDecode(request({Url = Link, Method = "GET"}))
     end)
+    print(Url)
     local NewUrl
     if S and Url then
-        NewUrl = Url[1].imageUrl
+        NewUrl = Url["data"].imageUrl
     else
         NewUrl = "PlaceholderImage.png"
     end 
