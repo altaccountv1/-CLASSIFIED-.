@@ -21,7 +21,7 @@ function IsInDungeon()
 end
 
 local function getThumbnailForUserId()
-    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png", Method = "GET"}))"
+    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
     return HttpService:JSONDecode(request({Url = Link, Method = "GET"}))[1].imageUrl
 end
 
