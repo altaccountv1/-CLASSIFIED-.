@@ -26,9 +26,7 @@ local function getThumbnailForUserId()
         return HttpService:JSONDecode(request({Url = Link, Method = "GET"}))
     end)
     for i,v in Url do
-         for i,v in v do
-             print(i,v)
-         end
+        print(i,v)
     end
     local NewUrl
     if S and Url then
