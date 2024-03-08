@@ -19,24 +19,22 @@ alreadyran.Name = "Alreadyran"
 function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
---[[
-local function getThumbnailForUserId()
+
+local function GetPlrThumbnail()
     local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
-    local S, Url = pcall(function()
-        return HttpService:JSONDecode(request({Url = Link, Method = "GET"}))
-    end)
-    for i,v in Url do
-        print(i,v)
-    end
-    local NewUrl
-    if S and Url then
-        NewUrl = Url
+    local Response = request({Url = Link}) -- Send out the response
+    local Data = HttpService:JSONDecode(Response) -- Decode the response
+    local ImageUrl
+    if Data.data.state == "Completed" then
+        if Data.data.imageUrl then
+            ImageUrl = Data.data.imageUrl
+        end
     else
-        NewUrl = "PlaceholderImage.png"
-    end 
-    return NewUrl
+        ImageUrl = "PlaceholderImage.png"
+    end
+    return ImageUrl
 end
---]]
+
 function IsInPvp()
     if plr:FindFirstChild("PvPed") then
         return true
@@ -99,9 +97,9 @@ local response =
                         ["description"] = DName.. " / "..UName.. " has executed Tiger style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
-                        --["thumbnail"] = {
-                          --  ["url"] = getThumbnailForUserId()
-                        --},
+                        ["thumbnail"] = {
+                            ["url"] = GetPlrThumbnail()
+                        },
                         ["fields"] = {
                            {
                         ["name"] = "Hardware Id",
