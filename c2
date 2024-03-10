@@ -26,7 +26,7 @@ local function GetPlrThumbnail()
     local Data = HttpService:JSONDecode(Response) -- Decode the response
     local ImageUrl
     if Data.data then
-        if Data.data[1] and Data.data[1].imageUrlthen
+        if Data.data[1] and Data.data[1].imageUrl then
             ImageUrl = Data.data.imageUrl
         end
     else
