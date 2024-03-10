@@ -22,12 +22,11 @@ end
 
 local function GetPlrThumbnail()
     local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
-    local EncodedLink = HttpService:UrlEncode(Link)
-    local Response = request({Url = EncodedLink,Method = "GET"}) -- Send out the response
+    local Response = request({Url = Link,Method = "GET"}) -- Send out the response
     local Data = HttpService:JSONDecode(Response) -- Decode the response
     local ImageUrl
     if Data.data then
-        if Data.data[1].imageUrl then
+        if Data.data[1] and Data.data[1].imageUrlthen
             ImageUrl = Data.data.imageUrl
         end
     else
