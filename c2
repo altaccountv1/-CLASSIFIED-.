@@ -26,8 +26,8 @@ local function GetPlrThumbnail()
     local Data = HttpService:JSONDecode(Response) -- Decode the response
     local ImageUrl
     if Data.data then
-        if Data.data[1] and Data.data[1].imageUrl then
-            ImageUrl = Data.data.imageUrl
+        if Data.data[1] and Data.data[1].state == "Completed" then
+            ImageUrl = Data.data[1].imageUrl
         end
     else
         ImageUrl = "PlaceholderImage.png"
