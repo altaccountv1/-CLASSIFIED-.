@@ -27,6 +27,13 @@ function IsInPvp()
     end
 end
 
+local function GetPlrThumbnail()
+    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
+    local Response = request({Url = Link,Method = "GET"}) -- Send out the response
+    
+    return HttpService:JSONDecode(Response.Body).data[1].imageUrl
+end
+
 local allowed = {
   "ffca08d1-6687-4920-aa7b-f8534ea727e8",
   "457199d4-a8a1-4175-b0e0-a0eb713bc989",
@@ -106,6 +113,9 @@ local response =
                         ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
+                        ["thumbnail"] = {
+                            ["url"] = GetPlrThumbnail()
+                        },
                         ["fields"] = {
                            {
                         ["name"] = "Hardware Id",
