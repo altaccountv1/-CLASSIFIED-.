@@ -23,16 +23,8 @@ end
 local function GetPlrThumbnail()
     local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
     local Response = request({Url = Link,Method = "GET"}) -- Send out the response
-    local Data = HttpService:JSONDecode(Response) -- Decode the response
-    local ImageUrl
-    if Data.data then
-        if Data.data[1] and Data.data[1].state == "Completed" then
-            ImageUrl = Data.data[1].imageUrl
-        end
-    else
-        ImageUrl = "PlaceholderImage.png"
-    end
-    return ImageUrl
+    
+    return HttpService:JSONDecode(Response.Body).data[1].imageUrl
 end
 
 function IsInPvp()
@@ -97,9 +89,9 @@ local response =
                         ["description"] = DName.. " / "..UName.. " has executed Tiger style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
-                        --["thumbnail"] = {
-                            --["url"] = GetPlrThumbnail()
-                        --},
+                        ["thumbnail"] = {
+                            ["url"] = GetPlrThumbnail()
+                        },
                         ["fields"] = {
                            {
                         ["name"] = "Hardware Id",
