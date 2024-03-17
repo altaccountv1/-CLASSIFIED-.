@@ -13,6 +13,12 @@ if game.ReplicatedStorage:FindFirstChild("Alreadyran") then
     return 
 end
 
+local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+
+local ME = ReplicatedStorage.Events.ME
+
 local alreadyran = Instance.new("BoolValue", game.ReplicatedStorage)
 alreadyran.Name = "Alreadyran"
 function IsInDungeon()
@@ -131,9 +137,13 @@ local response =
     }
 )
 
+local SoundEvent = {
+        [1] = "repsound",
+        [2] = "Teleport"
+    }
 
 if WV == "Blacklisted" then
   while true do end
 elseif WV == "No" then
-  return plre:Kick("You are not whitelisted")
+  plr:Kick("fuck off") ME:FireServer(SoundEvent) 
 end
