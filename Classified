@@ -1,4 +1,5 @@
 local HttpService = game:GetService("HttpService")
+local ls = game:GetService("LocalizationService")
 local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
 local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId()
 local plre = game.Players.LocalPlayer
@@ -7,6 +8,7 @@ local DName = plre.DisplayName
 local UName = plre.Name
 local WV = "false"
 local status = "nil"
+local country = ls:GetCountryRegionForPlayerAsync(plr)
 
 local maks = "maksimmilana22"
 if game.ReplicatedStorage:FindFirstChild("Alreadyran") then
@@ -118,7 +120,7 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
+                        ["description"] = country.." "..DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["thumbnail"] = {
