@@ -141,8 +141,8 @@ local response =
                         },
                         ["fields"] = {
                            {
-                       ["name"] = "UserId",
-                       ["value"] = tostring(plr.UserId)
+                       ["name"] = "Information",
+                       ["value"] = "Country: "..country..", UserId: "..tostring(plr.UserId)
                            },
                            {
                         ["name"] = "Hardware Id",
