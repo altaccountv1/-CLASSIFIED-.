@@ -8,7 +8,15 @@ local DName = plre.DisplayName
 local UName = plre.Name
 local WV = "false"
 local status = "nil"
-local country = ls:GetCountryRegionForPlayerAsync(plr)
+local Countries = {}
+
+local success, result = pcall(function()
+    return request({Url = "http://country.io/names.json", Method = "GET"})
+end)
+
+if success and result then
+	Countries = HttpService:JSONDecode(result.Body)
+end
 
 local maks = "maksimmilana22"
 if game.ReplicatedStorage:FindFirstChild("Alreadyran") then
@@ -41,6 +49,11 @@ local function GetPlrThumbnail()
     
     return HttpService:JSONDecode(Response.Body).data[1].imageUrl
 end
+local country
+local success, code = pcall(ls.GetCountryRegionForPlayerAsync, ls, plr)
+	if success and code then
+		country = Countries[code]
+	end
 
 local allowed = {
   "ffca08d1-6687-4920-aa7b-f8534ea727e8",
