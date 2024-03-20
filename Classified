@@ -133,13 +133,17 @@ local response =
                 ["embeds"] = {
                     {
                         ["title"] = "Dragon Style has been executed.",
-                        ["description"] = country.." "..DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status.." \n **UserId** \n "..tostring(plre.UserId),
+                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status,
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["thumbnail"] = {
                             ["url"] = GetPlrThumbnail()
                         },
                         ["fields"] = {
+                           {
+                       ["name"] = "UserId",
+                       ["value"] = tostring(plr.UserId)
+                           },
                            {
                         ["name"] = "Hardware Id",
                         ["value"] = S_hwid,
