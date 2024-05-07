@@ -19,9 +19,6 @@ if success and result then
 end
 
 local maks = "maksimmilana22"
-if game.ReplicatedStorage:FindFirstChild("Alreadyran") then
-    return 
-end
 
 local UserInputService = game:GetService("UserInputService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -29,8 +26,6 @@ local ReplicatedFirst = game:GetService("ReplicatedFirst")
 
 local ME = ReplicatedStorage.Events.ME
 
-local alreadyran = Instance.new("BoolValue", game.ReplicatedStorage)
-alreadyran.Name = "Alreadyran"
 function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
