@@ -92,43 +92,7 @@ elseif WV == "No" then
   status = "Not whitelisted"
 end
 
-local response =
-    request(
-    {
-        Url = Webhook_URL,
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = HttpService:JSONEncode(
-            {
-                ["content"] = "",
-                ["embeds"] = {
-                    {
-                        ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status,
-                        ["type"] = "rich",
-                        ["color"] = embedcolor,
-                        ["thumbnail"] = {
-                            ["url"] = GetPlrThumbnail()
-                        },
-                        ["fields"] = {
-                           {
-                       ["name"] = "Information",
-                       ["value"] = "Country: "..country..", UserId: "..tostring(plr.UserId)
-                           },
-                           {
-                        ["name"] = "Hardware Id",
-                        ["value"] = S_hwid,
-                        ["inline"] = true
-                           }
-                        }
-                    }
-                }
-            }
-        )
-    }
-)
+
 
 local SoundEvent = {
         [1] = "repsound",
