@@ -10,14 +10,6 @@ local WV = "false"
 local status = "nil"
 local Countries = {}
 
-local success, result = pcall(function()
-    return request({Url = "http://country.io/names.json", Method = "GET"})
-end)
-
-if success and result then
-	Countries = HttpService:JSONDecode(result.Body)
-end
-
 local maks = "maksimmilana22"
 
 local UserInputService = game:GetService("UserInputService")
@@ -38,17 +30,7 @@ function IsInPvp()
     end
 end
 
-local function GetPlrThumbnail()
-    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
-    local Response = request({Url = Link,Method = "GET"}) -- Send out the response
-    
-    return HttpService:JSONDecode(Response.Body).data[1].imageUrl
-end
-local country
-local success, code = pcall(ls.GetCountryRegionForPlayerAsync, ls, plr)
-if success and code then
-    country = Countries[code]
-end
+
 
 local allowed = {
   "4fb1bc99-45e0-49c2-879a-393bd34343ab",
