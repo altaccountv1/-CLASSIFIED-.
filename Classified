@@ -45,12 +45,13 @@ local function GetPlrThumbnail()
     return HttpService:JSONDecode(Response.Body).data[1].imageUrl
 end
 
-local country
+local country = "Unknown"
 local success, code = pcall(ls.GetCountryRegionForPlayerAsync, ls, plr)
 if success and code then
-    country = Countries[code]
+    country = Countries[code] or "Unknown"
+else
+    country = "Unknown"
 end
-
 
 
 local allowed = {
