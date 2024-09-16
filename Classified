@@ -41,8 +41,11 @@ end
 local function GetPlrThumbnail()
     local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
     local Response = request({Url = Link,Method = "GET"}) -- Send out the response
-    
-    return HttpService:JSONDecode(Response.Body).data[1].imageUrl
+
+    if HttpService:JSONDecode(Response.Body).data[1].imageUrl then
+        return HttpService:JSONDecode(Response.Body).data[1].imageUrl
+    else
+        return "https://tr.rbxcdn.com/c8c9a6b031e3b9c7f0ec96b4801a7df5/420/420/Image/Png"
 end
 
 local country = "Unknown"
