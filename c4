@@ -83,8 +83,8 @@ local response =
                 ["content"] = "",
                 ["embeds"] = {
                     {
-                        ["title"] = "Dragon Style has been executed.",
-                        ["description"] = DName.. " / "..UName.. " has executed Dragon style. \n \n **Status** \n "..status,
+                        ["title"] = "R2F Explorer has been executed.",
+                        ["description"] = DName.. " / "..UName.. " has executed the Explorer. \n \n **Status** \n "..status,
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["fields"] = {
