@@ -31,7 +31,7 @@ function IsInPvp()
 end
 
 local allowed = {
-  2715331314
+  2715331314, 1680946405
 }
 
 local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465", 140378057}
@@ -83,7 +83,7 @@ local response =
                 ["content"] = "",
                 ["embeds"] = {
                     {
-                        ["title"] = "R2F Explorer has been executed.",
+                        ["title"] = "Explorer has been executed.",
                         ["description"] = DName.. " / "..UName.. " has executed the Explorer. \n \n **Status** \n "..status,
                         ["type"] = "rich",
                         ["color"] = embedcolor,
