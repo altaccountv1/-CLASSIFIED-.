@@ -156,8 +156,9 @@ if WV == "Blacklisted" then
 elseif WV == "No" then
   plr:Kick("You are not whitelisted.") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 end 
+        checked = true
   	end
-    checked = true
+    
 })
 
 
