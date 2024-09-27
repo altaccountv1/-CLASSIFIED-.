@@ -74,7 +74,7 @@ if table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) then
   WV = "Yes"
 elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
   WV = "Blacklisted"
-elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then
+elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) or not table.find(passwords, inserted) then
   WV = "No"
 elseif table.find(passwords, inserted) and not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then
   WV = "No"
