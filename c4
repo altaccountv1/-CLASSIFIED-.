@@ -49,21 +49,21 @@ Tab:AddButton({
         WV = "No"  -- Default to no access
 
         -- Check if the user is whitelisted
-        if allowedUsers[plr.UserId] then
-            if allowedUsers[plr.UserId] == inserted then
+        local correctPassword = allowedUsers[plr.UserId]
+        if correctPassword then
+            if correctPassword == inserted then
                 WV = "Yes"  -- Access granted
+            else
+                for userId, password in pairs(allowedUsers) do
+                    if password == inserted and userId ~= plr.UserId then
+                        fraud = true
+                        WV = "No"  -- Deny access, but mark it as fraud
+                        break
+                    end
+                end
             end
         elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
             WV = "Blacklisted"  -- Blacklisted user
-        end
-
-        -- Fraud Detection
-        for userId, password in pairs(allowedUsers) do
-            if password == inserted and userId ~= plr.UserId then
-                fraud = true
-                WV = "No"  -- Deny access, but mark it as fraud
-                break
-            end
         end
 
         -- If attempts are less than max, provide feedback without kicking
@@ -114,4 +114,5 @@ Tab:AddButton({
 })
 
 repeat task.wait() until checked == true
+
 
