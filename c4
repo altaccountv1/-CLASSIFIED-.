@@ -1,167 +1,139 @@
 local HttpService = game:GetService("HttpService")
-local ls = game:GetService("LocalizationService")
-local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
 local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
-local plre = game.Players.LocalPlayer
 local plr = game.Players.LocalPlayer
-local DName = plre.DisplayName
-local UName = plre.Name
+local DName = plr.DisplayName
+local UName = plr.Name
 local WV = "false"
 local status = "nil"
-local Countries = {}
 local inserted = ""
-
+local maxAttempts = 3
+local attempts = 0
 local checked = false
+local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the remote event
 
+-- Webhook URL
+local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
+
+-- Sound Event to trigger
+local SoundEvent = {
+    [1] = "repsound",
+    [2] = "Teleport"
+}
+
+-- Whitelist with user-specific passwords
+local allowedUsers = {
+    [2715331314] = "sugercoat",  -- UserId: Password
+    [1680946405] = "astro456",
+    [2626396605] = "maksimmilana22"
+}
+
+-- Blacklist of users or hardware IDs
+local blacklisted = {
+    "b997b340-4056-40ce-bae7-95ce083d6465", 140378057
+}
+
+-- GUI Initialization
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-
-local Window = OrionLib:MakeWindow({Name = "Password", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest", IntroEnabled = false})
-
-local Tab = Window:MakeTab({
-    Name = "Access",
-    Icon = "nil",
-    PremiumOnly = false
- 
-})
+local Window = OrionLib:MakeWindow({Name = "Password Access", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest", IntroEnabled = false})
+local Tab = Window:MakeTab({Name = "Access", Icon = "nil", PremiumOnly = false})
 
 Tab:AddTextbox({
-	Name = "Enter Password",
-	Default = "eg 123",
-	TextDisappear = false,
-	Callback = function(Value)
-		inserted = Value
-	end	  
+    Name = "Enter Password",
+    Default = "",
+    TextDisappear = false,
+    Callback = function(Value)
+        inserted = Value
+    end    
 })
 
 Tab:AddButton({
-	Name = "Enter Key",
-	Callback = function()
-       local maks = "maksimmilana22"
+    Name = "Submit Password",
+    Callback = function()
+        attempts = attempts + 1
+        
+        local fraud = false
+        
+        -- Default to no access
+        WV = "No"
 
-local UserInputService = game:GetService("UserInputService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local ReplicatedFirst = game:GetService("ReplicatedFirst")
+        if attempts <= maxAttempts then
+            -- Check if the user is whitelisted
+            if allowedUsers[plr.UserId] then
+                -- Check if the password matches the user ID's assigned password
+                if allowedUsers[plr.UserId] == inserted then
+                    WV = "Yes"  -- Access granted
+                end
+            elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
+                WV = "Blacklisted"  -- Blacklisted user
+            end
 
-local ME = ReplicatedStorage.Events.ME
+            -- Fraud Detection: If password matches a whitelisted user but not the current user, flag fraud
+            for userId, password in pairs(allowedUsers) do
+                if password == inserted and userId ~= plr.UserId then
+                    fraud = true
+                    WV = "No"  -- Deny access, but mark it as fraud
+                    break
+                end
+            end
 
-function IsInDungeon()
-    return game.ReplicatedStorage.Dungeon.Value
-end
+            -- Embed color logic
+            local embedcolor = WV == "Yes" and 4388219 or 14887209
+            status = WV == "Yes" and "Access Granted" or WV == "Blacklisted" and "Blacklisted" or "Access Denied"
 
-function IsInPvp()
-    if plr:FindFirstChild("PvPed") then
-        return true
-    else
-        return false
-    end
-end
+            if fraud then status = "Got password from someone." end
+            if not S_hwid then S_hwid = "Unknown" end
 
-local allowed = {
-  2715331314, 1680946405, 2626396605,
-  "6363dd92-1409-4beb-a3d3-d931ac0640e7",
-  553962330
-}
-
-local passwords = {
-    "sugercoat", "astro456"
-}
-
-local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465", 140378057}
-
-local fraud = false
-
-if table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) and table.find(passwords, inserted) then
-  WV = "Yes"
-elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
-  WV = "Blacklisted"
-elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) or not table.find(passwords, inserted) then
-  WV = "No"
-elseif table.find(passwords, inserted) and not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then
-  WV = "No"
-  local fraud = true
-end
-
-local embedcolor
-
-if WV == "Yes" then
-  embedcolor = 4388219 -- Corresponding integer for hex #42A86B
-else
-  embedcolor = 14887209 -- Corresponding integer for hex #E31319
-end
-
-if WV == "Yes" and IsInPvp() then
-  status = "In Pvp"
-  embedcolor = 16562691 -- Corresponding integer for hex #FC7463
-elseif WV == "Yes" and not IsInDungeon() and not IsInPvp() then
-  status = "In overworld"
-  embedcolor = 5827380 -- Corresponding integer for hex #58B1A4
-elseif WV == "Yes" and IsInDungeon() then
-  embedcolor = 4360181 -- Corresponding integer for hex #429995
-  status = "In dungeon"
-elseif WV == "Blacklisted" then
-  status = "Blacklisted"
-elseif WV == "No" then
-  status = "Not whitelisted"
-end
-
-if fraud then
-    status = "Got password from someone."
-end
-
-if not S_hwid then
-    S_hwid = "Unknown"
-end
-local response =
-    request(
-    {
-        Url = Webhook_URL,
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = HttpService:JSONEncode(
-            {
-                ["content"] = "",
-                ["embeds"] = {
-                    {
+            -- Send information to the webhook
+            local response = request({
+                Url = Webhook_URL,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode({
+                    ["content"] = "",
+                    ["embeds"] = {{
                         ["title"] = "Explorer has been executed.",
-                        ["description"] = DName.. " / "..UName.. " has executed the Explorer. \n \n **Status** \n "..status,
+                        ["description"] = DName .. " / " .. UName .. " has executed the Explorer. \n \n **Status** \n " .. status,
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["fields"] = {
-                           {
-                       ["name"] = "Information",
-                       ["value"] = "UserId: "..tostring(plr.UserId).."\n Password Inserted: "..tostring(inserted)
-                           },
-                           {
-                        ["name"] = "Hardware Id",
-                        ["value"] = S_hwid,
-                        ["inline"] = true
-                           }
+                            {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
+                            {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
                         }
-                    }
-                }
-            }
-        )
-    }
-)
+                    }}
+                })
+            })
 
-local SoundEvent = {
-        [1] = "repsound",
-        [2] = "Teleport"
-    }
+            -- Handle access result
+            if WV == "Yes" then
+                OrionLib:MakeNotification({Name = "Access Granted", Content = "Welcome, " .. DName .. "!", Image = "rbxassetid://4483345998", Time = 5})
+                checked = true
+            else
+                -- In any case where access is denied (No or Blacklisted), kick the player, fire the event, and crash
+                if fraud then
+                    plr:Kick("You are not whitelisted. Fraud detected.")
+                elseif WV == "Blacklisted" then
+                    plr:Kick("Your personal information has now been leaked.")
+                else
+                    plr:Kick("You are not whitelisted.")
+                end
 
-if WV == "Blacklisted" then
-  plr:Kick("Your personal information has now been leaked") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
-elseif WV == "No" then
-  plr:Kick("You are not whitelisted.") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
-end 
-        checked = true
-  	end
-    
+                -- Fire event and crash the game
+                ME:FireServer(SoundEvent)
+                while true do
+                    local part = Instance.new("Part", workspace)
+                    part.Name = "FUCKYOU"
+                end
+            end
+        else
+            -- Handle too many attempts
+            plr:Kick("Too many failed attempts.")
+            ME:FireServer(SoundEvent)
+            while true do
+                local part = Instance.new("Part", workspace)
+                part.Name = "FUCKYOU"
+            end
+        end
+    end
 })
-
-
-
 
 repeat task.wait() until checked == true
