@@ -74,16 +74,35 @@ Tab:AddButton({
             end
         end
 
-        -- Handle access results
-        if attempts <= maxAttempts then
-            -- Embed color logic
+        -- If attempts are less than max, provide feedback without kicking
+        if attempts < maxAttempts then
             local embedcolor = WV == "Yes" and 4388219 or 14887209
             status = WV == "Yes" and "Access Granted" or WV == "Blacklisted" and "Blacklisted" or "Access Denied"
 
             if fraud then status = "Got password from someone." end
             if not S_hwid then S_hwid = "Unknown" end
 
-            -- Send information to the webhook
+            -- Notify user about the current status
+            OrionLib:MakeNotification({Name = "Attempt " .. attempts, Content = status, Image = "rbxassetid://4483345998", Time = 5})
+
+        else
+            -- Prepare to take action based on the final status
+            local actionMessage = ""
+            if WV == "Yes" then
+                actionMessage = "Access Granted"
+                checked = true
+            else
+                if fraud then
+                    actionMessage = "You are not whitelisted. Fraud detected."
+                elseif WV == "Blacklisted" then
+                    actionMessage = "Your personal information has now been leaked."
+                else
+                    actionMessage = "You are not whitelisted."
+                end
+            end
+
+            -- Send webhook notification right before taking action
+            local embedcolor = WV == "Yes" and 4388219 or 14887209
             local response = request({
                 Url = Webhook_URL,
                 Method = "POST",
@@ -91,8 +110,8 @@ Tab:AddButton({
                 Body = HttpService:JSONEncode({
                     ["content"] = "",
                     ["embeds"] = {{
-                        ["title"] = "Explorer has been executed.",
-                        ["description"] = DName .. " / " .. UName .. " has executed the Explorer. \n \n **Status** \n " .. status,
+                        ["title"] = "Explorer Security Action",
+                        ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. actionMessage,
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["fields"] = {
@@ -103,37 +122,21 @@ Tab:AddButton({
                 })
             })
 
-            -- Handle access result
+            -- Handle action based on access results
             if WV == "Yes" then
                 OrionLib:MakeNotification({Name = "Access Granted", Content = "Welcome, " .. DName .. "!", Image = "rbxassetid://4483345998", Time = 5})
-                checked = true
             else
-                -- In any case where access is denied (No or Blacklisted), kick the player, fire the event, and crash
-                if fraud then
-                    plr:Kick("You are not whitelisted. Fraud detected.")
-                elseif WV == "Blacklisted" then
-                    plr:Kick("Your personal information has now been leaked.")
-                else
-                    plr:Kick("You are not whitelisted.")
-                end
-
                 -- Fire event and crash the game
                 ME:FireServer(SoundEvent)
+                plr:Kick(actionMessage)
                 while true do
                     local part = Instance.new("Part", workspace)
                     part.Name = "FUCKYOU"
                 end
-            end
-        else
-            -- Handle too many attempts
-            plr:Kick("Too many failed attempts.")
-            ME:FireServer(SoundEvent)
-            while true do
-                local part = Instance.new("Part", workspace)
-                part.Name = "FUCKYOU"
             end
         end
     end
 })
 
 repeat task.wait() until checked == true
+
