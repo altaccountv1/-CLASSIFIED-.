@@ -24,7 +24,7 @@ local SoundEvent = {
 local allowedUsers = {
     [2715331314] = "sugercoat",  -- UserId: Password
     [1680946405] = "astro456",
-    [2626396605] = "sugercoat"
+    [2626396605] = "sugercoat"    -- Changed to sugercoat for this UserId
 }
 
 -- Blacklist of users or hardware IDs
@@ -49,33 +49,33 @@ Tab:AddTextbox({
 Tab:AddButton({
     Name = "Submit Password",
     Callback = function()
+        -- Increment attempts every time the button is clicked
         attempts = attempts + 1
         
         local fraud = false
-        
-        -- Default to no access
-        WV = "No"
+        WV = "No"  -- Default to no access
 
+        -- Check if the user is whitelisted
+        if allowedUsers[plr.UserId] then
+            -- Check if the password matches the user ID's assigned password
+            if allowedUsers[plr.UserId] == inserted then
+                WV = "Yes"  -- Access granted
+            end
+        elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
+            WV = "Blacklisted"  -- Blacklisted user
+        end
+
+        -- Fraud Detection: If password matches a whitelisted user but not the current user, flag fraud
+        for userId, password in pairs(allowedUsers) do
+            if password == inserted and userId ~= plr.UserId then
+                fraud = true
+                WV = "No"  -- Deny access, but mark it as fraud
+                break
+            end
+        end
+
+        -- Handle access results
         if attempts <= maxAttempts then
-            -- Check if the user is whitelisted
-            if allowedUsers[plr.UserId] then
-                -- Check if the password matches the user ID's assigned password
-                if allowedUsers[plr.UserId] == inserted then
-                    WV = "Yes"  -- Access granted
-                end
-            elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
-                WV = "Blacklisted"  -- Blacklisted user
-            end
-
-            -- Fraud Detection: If password matches a whitelisted user but not the current user, flag fraud
-            for userId, password in pairs(allowedUsers) do
-                if password == inserted and userId ~= plr.UserId then
-                    fraud = true
-                    WV = "No"  -- Deny access, but mark it as fraud
-                    break
-                end
-            end
-
             -- Embed color logic
             local embedcolor = WV == "Yes" and 4388219 or 14887209
             status = WV == "Yes" and "Access Granted" or WV == "Blacklisted" and "Blacklisted" or "Access Denied"
