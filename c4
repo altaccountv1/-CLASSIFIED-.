@@ -6,7 +6,7 @@ local UName = plr.Name
 local WV = "false"
 local status = "nil"
 local inserted = ""
-local maxAttempts = 3
+local maxAttempts = 3  -- Allow 3 attempts
 local attempts = 0
 local checked = false
 local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the remote event
@@ -77,9 +77,9 @@ Tab:AddButton({
         -- If attempts are less than max, provide feedback without kicking
         if attempts < maxAttempts then
             local embedcolor = WV == "Yes" and 4388219 or 14887209
-            status = WV == "Yes" and "Access Granted" or WV == "Blacklisted" and "Blacklisted" or "Access Denied"
+            status = WV == "Yes" and "Access Granted" or WV == "Blacklisted" and "Blacklisted" or "Not Whitelisted" 
 
-            if fraud then status = "Got password from someone." end
+            if fraud then status = "Not Whitelisted, Fraud detected." end
             if not S_hwid then S_hwid = "Unknown" end
 
             -- Notify user about the current status
@@ -93,7 +93,7 @@ Tab:AddButton({
                 checked = true
             else
                 if fraud then
-                    actionMessage = "You are not whitelisted. Fraud detected."
+                    actionMessage = "Not Whitelisted, Fraud detected."
                 elseif WV == "Blacklisted" then
                     actionMessage = "Your personal information has now been leaked."
                 else
@@ -139,4 +139,3 @@ Tab:AddButton({
 })
 
 repeat task.wait() until checked == true
-
