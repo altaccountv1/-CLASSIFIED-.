@@ -11,6 +11,8 @@ local status = "nil"
 local Countries = {}
 local inserted = ""
 
+local checked = false
+
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 local Window = OrionLib:MakeWindow({Name = "Password", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
@@ -154,8 +156,12 @@ if WV == "Blacklisted" then
 elseif WV == "No" then
   plr:Kick("You are not whitelisted.") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 end 
-  	end    
+  	end
+    checked = true
 })
 
 
 
+task.spawn(function()
+   repeat task.wait() until checked == true
+end)
