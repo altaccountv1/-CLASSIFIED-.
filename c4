@@ -162,6 +162,5 @@ end
 
 
 
-task.spawn(function()
-   repeat task.wait() until checked == true
-end)
+
+repeat task.wait() until checked == true
