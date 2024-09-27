@@ -74,7 +74,7 @@ elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) th
   WV = "Blacklisted"
 elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then
   WV = "No"
-elseif table.find(passwords, inserted) and not ((table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then
+elseif table.find(passwords, inserted) and not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then
   WV = "No"
   local fraud = true
 end
