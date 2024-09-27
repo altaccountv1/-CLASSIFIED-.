@@ -24,7 +24,7 @@ local SoundEvent = {
 local allowedUsers = {
     [2715331314] = "sugercoat",  -- UserId: Password
     [1680946405] = "astro456",
-    [2626396605] = "maksimmilana22"
+    [2626396605] = "sugercoat"
 }
 
 -- Blacklist of users or hardware IDs
