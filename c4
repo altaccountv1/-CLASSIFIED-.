@@ -79,29 +79,9 @@ Tab:AddButton({
             status = "Access Denied"
         end
 
-        -- Send webhook regardless of the outcome
-        local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
-        local response = request({
-            Url = Webhook_URL,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = HttpService:JSONEncode({
-                ["content"] = "",
-                ["embeds"] = {{
-                    ["title"] = "Explorer Security Action",
-                    ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
-                    ["type"] = "rich",
-                    ["color"] = embedcolor,
-                    ["fields"] = {
-                        {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
-                        {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
-                    }
-                }}
-            })
-        })
-
-        -- Handle access result after sending webhook
+        -- Send webhook and take security action only on the third attempt or if fraud is detected
         if WV == "Yes" then
+            -- If whitelisted and correct password, notify the user
             OrionLib:MakeNotification({
                 Name = "Access Granted",
                 Content = "Welcome, " .. DName .. "!",
@@ -109,8 +89,29 @@ Tab:AddButton({
                 Time = 5
             })
             checked = true
-        elseif attempts == 3 then
-            -- Fire event and kick the user after 3 failed attempts
+        elseif attempts == 3 or fraud then
+            -- Send webhook before taking action on the third attempt or if fraud is detected
+            local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
+            local response = request({
+                Url = Webhook_URL,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode({
+                    ["content"] = "",
+                    ["embeds"] = {{
+                        ["title"] = "Explorer Security Action",
+                        ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
+                        ["type"] = "rich",
+                        ["color"] = embedcolor,
+                        ["fields"] = {
+                            {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
+                            {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
+                        }
+                    }}
+                })
+            })
+
+            -- Take security action after sending webhook
             ME:FireServer(SoundEvent)
             plr:Kick(status)
             while true do
@@ -118,7 +119,7 @@ Tab:AddButton({
                 part.Name = "FUCKYOU"
             end
         else
-            -- Notify the player for the current attempt
+            -- Notify the player for the current attempt (only for first two attempts)
             OrionLib:MakeNotification({
                 Name = "Attempt " .. attempts,
                 Content = status,
