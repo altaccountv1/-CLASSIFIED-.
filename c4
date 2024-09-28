@@ -94,11 +94,11 @@ Tab:AddButton({
                     ["content"] = "",
                     ["embeds"] = {{
                         ["title"] = "Explorer Security Action",
-                        ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
+                        ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n**Status** \n" .. status,
                         ["type"] = "rich",
                         ["color"] = embedcolor,
                         ["fields"] = {
-                            {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
+                            {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\nPassword Inserted: " .. tostring(inserted)},
                             {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
                         }
                     }}
