@@ -18,7 +18,8 @@ local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5T
 local allowedUsers = {
     [2715331314] = "sugercoat",  -- UserId: Password
     [1680946405] = "astro456",
-    [2626396605] = "sugercoat"
+    [2626396605] = "sugercoat",
+    [4472544193] = "Totallynotretro"
 }
 
 -- Blacklist of users or hardware IDs
