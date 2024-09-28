@@ -6,7 +6,6 @@ local UName = plr.Name
 local WV = "false"
 local status = "nil"
 local inserted = ""
-local maxAttempts = 3  -- Allow 3 attempts
 local attempts = 0
 local checked = false
 local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the remote event
@@ -55,11 +54,12 @@ Tab:AddButton({
             if correctPassword == inserted then
                 WV = "Yes"  -- Access granted
             else
-                -- Check for password fraud (same password used by another user)
+                -- Immediately detect and act on password fraud (same password used by another user)
                 for userId, password in pairs(allowedUsers) do
                     if password == inserted and userId ~= plr.UserId then
                         fraud = true
                         WV = "No"
+                        status = "Access Denied, Fraud"
                         break
                     end
                 end
@@ -68,73 +68,65 @@ Tab:AddButton({
             WV = "Blacklisted"  -- Blacklisted user
         end
 
-        -- If no fraud is detected, mark it as Not Whitelisted on the 3rd attempt
-        if attempts == 3 and WV == "No" and not fraud then
-            status = "Access Denied"  -- Not Whitelisted
-        elseif WV == "No" then
-            status = "Access Denied"
-        elseif fraud then
+        -- Determine the status based on the whitelist and fraud check
+        if fraud then
             status = "Access Denied, Fraud"
-        elseif WV == "Blacklisted" then
-            status = "Access Denied, Blacklisted"
         elseif WV == "Yes" then
             status = "Access Granted"
+        elseif WV == "Blacklisted" then
+            status = "Access Denied, Blacklisted"
+        else
+            status = "Access Denied"
         end
 
-        -- Notify user about the current status on the third attempt
-        if attempts < maxAttempts then
-            -- Notify for attempts 1 and 2 without kicking
+        -- Send webhook regardless of the outcome
+        local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
+        local response = request({
+            Url = Webhook_URL,
+            Method = "POST",
+            Headers = {["Content-Type"] = "application/json"},
+            Body = HttpService:JSONEncode({
+                ["content"] = "",
+                ["embeds"] = {{
+                    ["title"] = "Explorer Security Action",
+                    ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
+                    ["type"] = "rich",
+                    ["color"] = embedcolor,
+                    ["fields"] = {
+                        {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
+                        {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
+                    }
+                }}
+            })
+        })
+
+        -- Handle access result after sending webhook
+        if WV == "Yes" then
+            OrionLib:MakeNotification({
+                Name = "Access Granted",
+                Content = "Welcome, " .. DName .. "!",
+                Image = "rbxassetid://4483345998",
+                Time = 5
+            })
+            checked = true
+        elseif attempts == 3 then
+            -- Fire event and kick the user after 3 failed attempts
+            ME:FireServer(SoundEvent)
+            plr:Kick(status)
+            while true do
+                local part = Instance.new("Part", workspace)
+                part.Name = "FUCKYOU"
+            end
+        else
+            -- Notify the player for the current attempt
             OrionLib:MakeNotification({
                 Name = "Attempt " .. attempts,
                 Content = status,
                 Image = "rbxassetid://4483345998",
                 Time = 5
             })
-        else
-            -- Take action on the third attempt
-            if WV == "Yes" then
-                OrionLib:MakeNotification({
-                    Name = "Access Granted",
-                    Content = "Welcome, " .. DName .. "!",
-                    Image = "rbxassetid://4483345998",
-                    Time = 5
-                })
-                checked = true
-            else
-                -- Send webhook before taking action
-                local embedcolor = (WV == "Yes" and 4388219) or 14887209
-                local response = request({
-                    Url = Webhook_URL,
-                    Method = "POST",
-                    Headers = {["Content-Type"] = "application/json"},
-                    Body = HttpService:JSONEncode({
-                        ["content"] = "",
-                        ["embeds"] = {{
-                            ["title"] = "Explorer Security Action",
-                            ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
-                            ["type"] = "rich",
-                            ["color"] = embedcolor,
-                            ["fields"] = {
-                                {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
-                                {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
-                            }
-                        }}
-                    })
-                })
-
-                -- Fire event and kick the user with a message
-                ME:FireServer(SoundEvent)
-                plr:Kick(status)
-                while true do
-                    local part = Instance.new("Part", workspace)
-                    part.Name = "FUCKYOU"
-                end
-            end
         end
     end
 })
 
 repeat task.wait() until checked == true
-
-
-
