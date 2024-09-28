@@ -15,7 +15,7 @@ local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5T
 
 -- Whitelist with user-specific passwords
 local allowedUsers = {
-    [2715331314] = "sugercoat",  -- UserId: Password
+    [2715331314] = "nigger",  -- UserId: Password
     [1680946405] = "astro456",
     [2626396605] = "sugercoat",
     [4472544193] = "Totallynotretro"
@@ -82,12 +82,6 @@ Tab:AddButton({
         -- Send webhook and take security action only on the third attempt or if fraud is detected
         if WV == "Yes" then
             -- If whitelisted and correct password, notify the user
-            OrionLib:MakeNotification({
-                Name = "Access Granted",
-                Content = "Welcome, " .. DName .. "!",
-                Image = "rbxassetid://4483345998",
-                Time = 5
-            })
             checked = true
         elseif attempts == 3 or fraud then
             -- Send webhook before taking action on the third attempt or if fraud is detected
