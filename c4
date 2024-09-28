@@ -70,6 +70,8 @@ Tab:AddButton({
         -- If no fraud is detected, mark it as Not Whitelisted on the 3rd attempt
         if attempts == 3 and WV == "No" and not fraud then
             status = "Access Denied"  -- Not Whitelisted
+        elseif WV == "No" then
+            status = "Access Denied"
         elseif fraud then
             status = "Access Denied, Fraud"
         elseif WV == "Blacklisted" then
