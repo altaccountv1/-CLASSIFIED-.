@@ -79,26 +79,28 @@ Tab:AddButton({
             status = "Access Denied"
         end
 
-        -- Send webhook in all cases before taking action (whether access is granted or denied)
-        local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
-        local response = request({
-            Url = Webhook_URL,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = HttpService:JSONEncode({
-                ["content"] = "",
-                ["embeds"] = {{
-                    ["title"] = "Explorer Security Action",
-                    ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
-                    ["type"] = "rich",
-                    ["color"] = embedcolor,
-                    ["fields"] = {
-                        {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
-                        {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
-                    }
-                }}
+        -- Only send webhook if access is granted or the player is being kicked
+        if WV == "Yes" or attempts == 3 or fraud then
+            local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
+            local response = request({
+                Url = Webhook_URL,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode({
+                    ["content"] = "",
+                    ["embeds"] = {{
+                        ["title"] = "Explorer Security Action",
+                        ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
+                        ["type"] = "rich",
+                        ["color"] = embedcolor,
+                        ["fields"] = {
+                            {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
+                            {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
+                        }
+                    }}
+                })
             })
-        })
+        end
 
         -- Take security action
         if WV == "Yes" then
