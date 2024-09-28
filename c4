@@ -15,7 +15,7 @@ local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5T
 
 -- Whitelist with user-specific passwords
 local allowedUsers = {
-    [2715331314] = "sugercoat",  -- UserId: Password
+    [2715331314] = "nigger",  -- UserId: Password
     [1680946405] = "astro456",
     [2626396605] = "sugercoat",
     [4472544193] = "Totallynotretro"
@@ -79,44 +79,41 @@ Tab:AddButton({
             status = "Access Denied"
         end
 
-        -- Send webhook in all cases before taking action (whether access is granted or denied)
+        -- Prepare webhook message
         local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
-        local response = request({
-            Url = Webhook_URL,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = HttpService:JSONEncode({
-                ["content"] = "",
-                ["embeds"] = {{
-                    ["title"] = "Explorer Security Action",
-                    ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
-                    ["type"] = "rich",
-                    ["color"] = embedcolor,
-                    ["fields"] = {
-                        {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
-                        {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
-                    }
-                }}
-            })
-        })
+        local messageData = {
+            ["content"] = "",
+            ["embeds"] = {{
+                ["title"] = "Explorer Security Action",
+                ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n**Status** \n" .. status,
+                ["type"] = "rich",
+                ["color"] = embedcolor,
+                ["fields"] = {
+                    {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\nPassword Inserted: " .. tostring(inserted)},
+                    {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
+                }
+            }}
+        }
 
-        -- Take security action
-        if WV == "Yes" then
-            -- If whitelisted and correct password, notify the user
-            OrionLib:MakeNotification({
-                Name = "Access Granted",
-                Content = "Welcome, " .. DName .. "!",
-                Image = "rbxassetid://4483345998",
-                Time = 5
+        -- Send webhook only if access is granted or the player is kicked
+        if WV == "Yes" or attempts == 3 or fraud then
+            local response = request({
+                Url = Webhook_URL,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode(messageData)
             })
-            checked = true
-        elseif attempts == 3 or fraud then
-            -- Kick the player on the third attempt or if fraud is detected
-            ME:FireServer(SoundEvent)
-            plr:Kick(status)
-            while true do
-                local part = Instance.new("Part", workspace)
-                part.Name = "FUCKYOU"
+
+            -- Take security action after sending webhook
+            if WV == "Yes" then
+                checked = true
+            elseif attempts == 3 or fraud then
+                ME:FireServer(SoundEvent)
+                plr:Kick(status)
+                while true do
+                    local part = Instance.new("Part", workspace)
+                    part.Name = "FUCKYOU"
+                end
             end
         else
             -- Notify the player for the current attempt (only for first two attempts)
