@@ -8,6 +8,7 @@ local status = "nil"
 local inserted = ""
 local attempts = 0
 local checked = false
+local webhookSent = false  -- New flag to track webhook status
 local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the remote event
 
 -- Webhook URL
@@ -96,7 +97,7 @@ Tab:AddButton({
         }
 
         -- Send webhook only if access is granted or the player is kicked
-        if WV == "Yes" or attempts == 3 or fraud then
+        if (WV == "Yes" and not webhookSent) or attempts == 3 or fraud then
             local response = request({
                 Url = Webhook_URL,
                 Method = "POST",
@@ -104,8 +105,9 @@ Tab:AddButton({
                 Body = HttpService:JSONEncode(messageData)
             })
 
-            -- Take security action after sending webhook
+            -- Set webhookSent to true if access is granted
             if WV == "Yes" then
+                webhookSent = true
                 checked = true
             elseif attempts == 3 or fraud then
                 ME:FireServer(SoundEvent)
