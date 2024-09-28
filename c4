@@ -15,7 +15,7 @@ local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5T
 
 -- Whitelist with user-specific passwords
 local allowedUsers = {
-    [2715331314] = "nigger",  -- UserId: Password
+    [2715331314] = "sugercoat",  -- UserId: Password
     [1680946405] = "astro456",
     [2626396605] = "sugercoat",
     [4472544193] = "Totallynotretro"
@@ -79,33 +79,33 @@ Tab:AddButton({
             status = "Access Denied"
         end
 
-        -- Send webhook and take security action only on the third attempt or if fraud is detected
+        -- Send webhook in all cases before taking action (whether access is granted or denied)
+        local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
+        local response = request({
+            Url = Webhook_URL,
+            Method = "POST",
+            Headers = {["Content-Type"] = "application/json"},
+            Body = HttpService:JSONEncode({
+                ["content"] = "",
+                ["embeds"] = {{
+                    ["title"] = "Explorer Security Action",
+                    ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n **Status** \n " .. status,
+                    ["type"] = "rich",
+                    ["color"] = embedcolor,
+                    ["fields"] = {
+                        {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\n Password Inserted: " .. tostring(inserted)},
+                        {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
+                    }
+                }}
+            })
+        })
+
+        -- Take security action
         if WV == "Yes" then
-            -- If whitelisted and correct password, notify the user
+            -- Access granted, but no notification for the player.
             checked = true
         elseif attempts == 3 or fraud then
-            -- Send webhook before taking action on the third attempt or if fraud is detected
-            local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
-            local response = request({
-                Url = Webhook_URL,
-                Method = "POST",
-                Headers = {["Content-Type"] = "application/json"},
-                Body = HttpService:JSONEncode({
-                    ["content"] = "",
-                    ["embeds"] = {{
-                        ["title"] = "Explorer Security Action",
-                        ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n**Status** \n" .. status,
-                        ["type"] = "rich",
-                        ["color"] = embedcolor,
-                        ["fields"] = {
-                            {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\nPassword Inserted: " .. tostring(inserted)},
-                            {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
-                        }
-                    }}
-                })
-            })
-
-            -- Take security action after sending webhook
+            -- Kick the player on the third attempt or if fraud is detected
             ME:FireServer(SoundEvent)
             plr:Kick(status)
             while true do
