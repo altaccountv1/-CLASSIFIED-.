@@ -14,6 +14,13 @@ local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the 
 -- Webhook URL
 local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
 
+local function GetPlrThumbnail()
+    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
+    local Response = request({Url = Link,Method = "GET"}) -- Send out the response
+    
+    return HttpService:JSONDecode(Response.Body).data[1].imageUrl
+end
+
 -- Whitelist with user-specific passwords
 local allowedUsers = {
     [2715331314] = "nigger",  -- UserId: Password
@@ -90,6 +97,9 @@ Tab:AddButton({
                 ["title"] = "Explorer Security Action",
                 ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n**Status** \n" .. status,
                 ["type"] = "rich",
+                ["thumbnail"] = {
+                    ["url"] = GetPlrThumbnail()
+                },
                 ["color"] = embedcolor,
                 ["fields"] = {
                     {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\nPassword Inserted: " .. tostring(inserted)},
