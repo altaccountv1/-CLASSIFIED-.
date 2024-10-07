@@ -27,7 +27,11 @@ local allowedUsers = {
     [1680946405] = "astro456",
     [2626396605] = "sugercoat",
     [4472544193] = "Totallynotretro",
-    [1292292956] = "gamblingaddict69"
+    [1292292956] = "gamblingaddict69",
+    [2009338237] = "ihaveawimpyhat",
+    [4947507181] = "thegodofr2f",
+    [7133956886] = "Fingertips",
+    [4525633883] = "apple"
 
 }
 
