@@ -15,11 +15,29 @@ local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the 
 local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
 
 local function GetPlrThumbnail()
-    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..plr.UserId.."&size=150x150&format=Png"
-    local Response = request({Url = Link,Method = "GET"}) -- Send out the response
+    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=" .. plr.UserId .. "&size=150x150&format=Png"
     
-    return HttpService:JSONDecode(Response.Body).data[1].imageUrl
+    local success, Response = pcall(function()
+        return request({Url = Link, Method = "GET"})
+    end)
+
+    if not success then
+        warn("Failed to fetch player thumbnail: " .. tostring(Response))
+        return "https://via.placeholder.com/150" -- Placeholder image URL
+    end
+
+    local successDecode, data = pcall(function()
+        return HttpService:JSONDecode(Response.Body)
+    end)
+
+    if not successDecode or not data.data or #data.data == 0 then
+        warn("Failed to decode response or no data found.")
+        return "https://via.placeholder.com/150" -- Placeholder image URL
+    end
+
+    return data.data[1].imageUrl
 end
+
 
 -- Whitelist with user-specific passwords
 local allowedUsers = {
