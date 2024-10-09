@@ -32,7 +32,8 @@ local allowedUsers = {
     [4947507181] = "thegodofr2f",
     [7133956886] = "Fingertips",
     [4525633883] = "apple",
-    [3181914833] = "toxic"
+    [3181914833] = "toxic",
+    [4880198166] = "microscopic"
 }
 
 -- Blacklist of users or hardware IDs
