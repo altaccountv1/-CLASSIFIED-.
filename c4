@@ -54,7 +54,8 @@ local allowedUsers = {
     [4880198166] = "microscopic",
     [4161772804] = "billy",
     [2435074780] = "grass",
-    [469641527] = "oneday"
+    [469641527] = "oneday",
+    [7124057439] = "asian"
 }
 
 -- Blacklist of users or hardware IDs
