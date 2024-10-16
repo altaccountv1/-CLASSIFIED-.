@@ -137,7 +137,7 @@ Tab:AddButton({
         }
 
         -- Send webhook only if access is granted or the player is kicked
-        if (WV == "Yes" and not webhookSent) or attempts == 3 or fraud then
+        if WV == "Yes" or attempts == 3 or fraud then
             local response = request({
                 Url = Webhook_URL,
                 Method = "POST",
