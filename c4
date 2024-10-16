@@ -11,6 +11,7 @@ local checked = false
 local webhookSent = false  -- New flag to track webhook status
 local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the remote event
 
+local SoundEvent = {"repsound", "Teleport"}
 -- Webhook URL
 local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
 
@@ -56,7 +57,7 @@ local allowedUsers = {
     [2435074780] = "grass",
     [469641527] = "oneday",
     [7124057439] = "asian",
-    [1747773356] = "fake"
+    [481590158] = "fake"
 }
 
 -- Blacklist of users or hardware IDs
