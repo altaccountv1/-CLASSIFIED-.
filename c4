@@ -119,6 +119,23 @@ Tab:AddButton({
         end
 
         -- Prepare and send the webhook if required
+        local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
+        local messageData = {
+            ["content"] = "",
+            ["embeds"] = {{
+                ["title"] = "Explorer Security Action",
+                ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n**Status** \n" .. status,
+                ["type"] = "rich",
+                ["thumbnail"] = {
+                    ["url"] = GetPlrThumbnail()
+                },
+                ["color"] = embedcolor,
+                ["fields"] = {
+                    {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\nPassword Inserted: " .. tostring(inserted)},
+                    {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
+                }
+            }}
+        }
         if WV == "Yes" or attempts == 3 or fraud then
             -- Send the webhook message
             local response = request({
