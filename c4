@@ -1,3 +1,84 @@
+local HttpService = game:GetService("HttpService")
+local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
+local plr = game.Players.LocalPlayer
+local DName = plr.DisplayName
+local UName = plr.Name
+local WV = "false"
+local status = "nil"
+local inserted = ""
+local attempts = 0
+local checked = false
+local webhookSent = false  -- New flag to track webhook status
+local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the remote event
+
+local SoundEvent = {"repsound", "Teleport"}
+-- Webhook URL
+local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
+
+local function GetPlrThumbnail()
+    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=" .. plr.UserId .. "&size=150x150&format=Png"
+    
+    local success, Response = pcall(function()
+        return request({Url = Link, Method = "GET"})
+    end)
+
+    if not success then
+        warn("Failed to fetch player thumbnail: " .. tostring(Response))
+        return "https://via.placeholder.com/150" -- Placeholder image URL
+    end
+
+    local successDecode, data = pcall(function()
+        return HttpService:JSONDecode(Response.Body)
+    end)
+
+    if not successDecode or not data.data or #data.data == 0 then
+        warn("Failed to decode response or no data found.")
+        return "https://via.placeholder.com/150" -- Placeholder image URL
+    end
+
+    return data.data[1].imageUrl
+end
+
+
+-- Whitelist with user-specific passwords
+local allowedUsers = {
+    [2715331314] = "nigger",  -- UserId: Password
+    [1680946405] = "zlompeez",
+    [2626396605] = "sugercoat",
+    [4472544193] = "Totallynotretro",
+    [1292292956] = "gamblingaddict69",
+    [2009338237] = "ihaveawimpyhat",
+    [4947507181] = "thegodofr2f",
+    [7133956886] = "Fingertips",
+    [4525633883] = "apple",
+    [3181914833] = "toxic",
+    [4880198166] = "microscopic",
+    [4161772804] = "billy",
+    [2435074780] = "grass",
+    [469641527] = "oneday",
+    [7124057439] = "asian",
+    [481590158] = "fake"
+}
+
+-- Blacklist of users or hardware IDs
+local blacklisted = {
+    "b997b340-4056-40ce-bae7-95ce083d6465", 140378057
+}
+
+-- GUI Initialization
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Password Access", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest", IntroEnabled = false})
+local Tab = Window:MakeTab({Name = "Access", Icon = "nil", PremiumOnly = false})
+
+Tab:AddTextbox({
+    Name = "Enter Password",
+    Default = "",
+    TextDisappear = false,
+    Callback = function(Value)
+        inserted = Value
+    end    
+})
+
 Tab:AddButton({
     Name = "Submit Password",
     Callback = function()
@@ -73,5 +154,6 @@ Tab:AddButton({
         end
     end
 })
+
 
 repeat task.wait() until checked == true
