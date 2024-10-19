@@ -1,88 +1,7 @@
-local HttpService = game:GetService("HttpService")
-local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
-local plr = game.Players.LocalPlayer
-local DName = plr.DisplayName
-local UName = plr.Name
-local WV = "false"
-local status = "nil"
-local inserted = ""
-local attempts = 0
-local checked = false
-local webhookSent = false  -- New flag to track webhook status
-local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the remote event
-
-local SoundEvent = {"repsound", "Teleport"}
--- Webhook URL
-local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
-
-local function GetPlrThumbnail()
-    local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=" .. plr.UserId .. "&size=150x150&format=Png"
-    
-    local success, Response = pcall(function()
-        return request({Url = Link, Method = "GET"})
-    end)
-
-    if not success then
-        warn("Failed to fetch player thumbnail: " .. tostring(Response))
-        return "https://via.placeholder.com/150" -- Placeholder image URL
-    end
-
-    local successDecode, data = pcall(function()
-        return HttpService:JSONDecode(Response.Body)
-    end)
-
-    if not successDecode or not data.data or #data.data == 0 then
-        warn("Failed to decode response or no data found.")
-        return "https://via.placeholder.com/150" -- Placeholder image URL
-    end
-
-    return data.data[1].imageUrl
-end
-
-
--- Whitelist with user-specific passwords
-local allowedUsers = {
-    [2715331314] = "nigger",  -- UserId: Password
-    [1680946405] = "zlompeez",
-    [2626396605] = "sugercoat",
-    [4472544193] = "Totallynotretro",
-    [1292292956] = "gamblingaddict69",
-    [2009338237] = "ihaveawimpyhat",
-    [4947507181] = "thegodofr2f",
-    [7133956886] = "Fingertips",
-    [4525633883] = "apple",
-    [3181914833] = "toxic",
-    [4880198166] = "microscopic",
-    [4161772804] = "billy",
-    [2435074780] = "grass",
-    [469641527] = "oneday",
-    [7124057439] = "asian",
-    [481590158] = "fake"
-}
-
--- Blacklist of users or hardware IDs
-local blacklisted = {
-    "b997b340-4056-40ce-bae7-95ce083d6465", 140378057
-}
-
--- GUI Initialization
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Password Access", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest", IntroEnabled = false})
-local Tab = Window:MakeTab({Name = "Access", Icon = "nil", PremiumOnly = false})
-
-Tab:AddTextbox({
-    Name = "Enter Password",
-    Default = "",
-    TextDisappear = false,
-    Callback = function(Value)
-        inserted = Value
-    end    
-})
-
 Tab:AddButton({
     Name = "Submit Password",
     Callback = function()
-        attempts = attempts + 1
+        attempts = attempts + 1  -- Increment the attempts counter on every button press
 
         local fraud = false
         WV = "No"  -- Default to no access
@@ -93,7 +12,7 @@ Tab:AddButton({
             if correctPassword == inserted then
                 WV = "Yes"  -- Access granted
             else
-                -- Immediately detect and act on password fraud (same password used by another user)
+                -- Detect if the entered password belongs to another user (fraud)
                 for userId, password in pairs(allowedUsers) do
                     if password == inserted and userId ~= plr.UserId then
                         fraud = true
@@ -107,7 +26,7 @@ Tab:AddButton({
             WV = "Blacklisted"  -- Blacklisted user
         end
 
-        -- Determine the status based on the whitelist and fraud check
+        -- Set the appropriate status message
         if fraud then
             status = "Access Denied, Fraud"
         elseif WV == "Yes" then
@@ -118,27 +37,9 @@ Tab:AddButton({
             status = "Access Denied"
         end
 
-        -- Prepare webhook message
-        local embedcolor = (WV == "Yes" and 4388219) or 14887209 -- Green if granted, red otherwise
-        local messageData = {
-            ["content"] = "",
-            ["embeds"] = {{
-                ["title"] = "Explorer Security Action",
-                ["description"] = DName .. " / " .. UName .. " is attempting access. \n \n**Status** \n" .. status,
-                ["type"] = "rich",
-                ["thumbnail"] = {
-                    ["url"] = GetPlrThumbnail()
-                },
-                ["color"] = embedcolor,
-                ["fields"] = {
-                    {["name"] = "Information", ["value"] = "UserId: " .. tostring(plr.UserId) .. "\nPassword Inserted: " .. tostring(inserted)},
-                    {["name"] = "Hardware Id", ["value"] = S_hwid, ["inline"] = true}
-                }
-            }}
-        }
-
-        -- Send webhook only if access is granted or the player is kicked
+        -- Prepare and send the webhook if required
         if WV == "Yes" or attempts == 3 or fraud then
+            -- Send the webhook message
             local response = request({
                 Url = Webhook_URL,
                 Method = "POST",
@@ -146,20 +47,23 @@ Tab:AddButton({
                 Body = HttpService:JSONEncode(messageData)
             })
 
-            -- Set webhookSent to true if access is granted
+            -- If access is granted, set webhookSent to true and stop further attempts
             if WV == "Yes" then
                 webhookSent = true
                 checked = true
-            elseif attempts == 3 or fraud then
+            elseif attempts >= 3 or fraud then
+                -- Kick the player if attempts reach 3 or fraud is detected
                 ME:FireServer(SoundEvent)
                 plr:Kick(status)
+
+                -- Optionally spam parts in the workspace as part of the kick (for effect)
                 while true do
                     local part = Instance.new("Part", workspace)
                     part.Name = "FUCKYOU"
                 end
             end
         else
-            -- Notify the player for the current attempt (only for first two attempts)
+            -- Notify the player about the attempt status (only notify for the first two attempts)
             OrionLib:MakeNotification({
                 Name = "Attempt " .. attempts,
                 Content = status,
