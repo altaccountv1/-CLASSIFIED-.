@@ -150,7 +150,7 @@ Tab:AddButton({
             if WV == "Yes" then
                 webhookSent = true
                 checked = true
-            elseif attempts >= 3 or fraud then
+            elseif attempts >= 3 then
                 -- Kick the player if attempts reach 3 or fraud is detected
                 ME:FireServer(SoundEvent)
                 plr:Kick(status)
