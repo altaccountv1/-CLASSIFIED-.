@@ -137,7 +137,7 @@ Tab:AddButton({
                 }
             }}
         }
-        if WV == "Yes" or attempts == 3 or fraud then
+        if WV == "Yes" or attempts >= 3 or fraud then
             -- Send the webhook message
             local response = request({
                 Url = Webhook_URL,
