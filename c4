@@ -58,7 +58,8 @@ local allowedUsers = {
     [469641527] = "oneday",
     [7124057439] = "asian",
     [481590158] = "fake",
-    [1741574410] = "velocityHateful!"
+    [1741574410] = "velocityHateful!",
+    [2720948488] = "lito10"
 }
 
 -- Blacklist of users or hardware IDs
