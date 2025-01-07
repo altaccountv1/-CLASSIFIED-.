@@ -13,7 +13,7 @@ local ME = game:GetService("ReplicatedStorage").Events.ME -- Assuming ME is the 
 
 local SoundEvent = {"repsound", "Teleport"}
 -- Webhook URL
-local Webhook_URL = "https://discord.com/api/webhooks/1205437358166646836/EW0c5Tfm0UIzK480wbPGS_TsI9a99hylePA5sf6CNDuPxgK1WXFiueHADjEKu5BNgf9c"
+local Webhook_URL = "https://discord.com/api/webhooks/1326078676940492872/ZiQ10ecuffM1x-egD9FpPNSYQGtgt5XDOTdDGNsb3bXKTLjLB3nDH6z1lhac_TfaiJsv"
 
 local function GetPlrThumbnail()
     local Link = "https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=" .. plr.UserId .. "&size=150x150&format=Png"
