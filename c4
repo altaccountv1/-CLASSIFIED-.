@@ -94,6 +94,7 @@ Tab:AddTextbox({
 Tab:AddButton({
     Name = "Submit Password",
     Callback = function()
+        print("button clicked")
         attempts = attempts + 1  -- Increment the attempts counter on every button press
 
         local fraud = false
@@ -161,6 +162,7 @@ Tab:AddButton({
             if WV == "Yes" then
                 webhookSent = true
                 checked = true
+                print("yes")
             elseif attempts >= 3 then
                 -- Kick the player if attempts reach 3 or fraud is detected
                 ME:FireServer(SoundEvent)
