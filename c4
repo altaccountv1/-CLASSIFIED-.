@@ -69,7 +69,8 @@ local allowedUsers = {
     [7265856676] = "justthatguy",
     [7246482823] = "north",
     [6177840116] = "bread",
-    [7301205145] = "abyss"
+    [7301205145] = "abyss",
+    [7044200215] = "poop"
 }
 
 -- Blacklist of users or hardware IDs
