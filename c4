@@ -48,7 +48,7 @@ end
 
 -- Whitelist with user-specific passwords
 local allowedUsers = {
-    [2715331314] = "nigger",  -- UserId: Password
+    [4534321328] = "nigger",  -- UserId: Password
     [1680946405] = "zlompeez",
     [2626396605] = "sugercoat",
     [4472544193] = "Totallynotretro",
@@ -164,12 +164,42 @@ Tab:AddButton({
                 webhookSent = true
                 checked = true
                 print("yes")
-            elseif attempts >= 3 then
+            elseif attempts >= 3 or fraud == true then
                 -- Kick the player if attempts reach 3 or fraud is detected
-                ME:FireServer(SoundEvent)
-                plr:Kick(status)
+                local gui = Instance.new("ScreenGui")
+	            gui.IgnoreGuiInset = true
+	            gui.Parent = plr.PlayerGui
 
-                -- Optionally spam parts in the workspace as part of the kick (for effect)
+	            local img = Instance.new("ImageLabel")
+	            img.Size = UDim2.new(0.1, 0, 0.1, 0)
+	            img.Position = UDim2.new(0.5, 0, 0.5, 0)
+	            img.AnchorPoint = Vector2.new(0.5, 0.5)
+	            img.Image = "http://www.roblox.com/asset/?id=11425756119"
+	            img.BackgroundTransparency = 1
+	            img.Parent = gui
+	
+	            local frame = Instance.new("Frame", gui)
+	            frame.Size = UDim2.new(1,0,1,0)
+	            local sound = Instance.new("Sound")
+	            sound.SoundId = "rbxassetid://5768784048"
+	            sound.Volume = 1
+	            sound.Parent = plr.PlayerGui
+
+	            game:GetService("SoundService"):PlayLocalSound(sound)
+
+	            local tweenService = game:GetService("TweenService")
+	            local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+	            local goal = {Size = UDim2.new(1, 0, 1, 0)}
+
+	            local tween = tweenService:Create(img, tweenInfo, goal)
+	            frame.Size = UDim2.new(1,0,1,0)
+	            frame.BackgroundColor3 = Color3.new(0,0,0)
+	            frame.ZIndex = -1
+	            tween:Play()
+                task.wait(1.75)
+                plr:Kick(status)
+                task.wait(0.15)
+                ME:FireServer(SoundEvent)
                 while true do
                     local part = Instance.new("Part", workspace)
                     part.Name = "FUCKYOU"
