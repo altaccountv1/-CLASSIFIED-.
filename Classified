@@ -206,6 +206,6 @@ elseif WV == "No" then
 	frame.BackgroundColor3 = Color3.new(0,0,0)
 	frame.ZIndex = -1
 	tween:Play()
-    task.wait(2)
-  plr:Kick("You are not whitelisted.") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
+    task.wait(1.75)
+  plr:Kick() task.wait(0.1) ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 end
