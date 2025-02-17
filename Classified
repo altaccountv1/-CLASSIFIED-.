@@ -207,5 +207,5 @@ elseif WV == "No" then
 	frame.ZIndex = -1
 	tween:Play()
     task.wait(1.75)
-  plr:Kick() task.wait(0.1) ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
+  plr:Kick() task.wait(0.2) ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 end
