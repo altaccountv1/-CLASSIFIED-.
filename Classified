@@ -209,3 +209,6 @@ elseif WV == "No" then
     task.wait(1.75)
   plr:Kick() task.wait(0.2) ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 end
+
+checked = true
+repeat task.wait() until checked == true
