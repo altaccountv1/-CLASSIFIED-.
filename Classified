@@ -10,6 +10,7 @@ local ls = game:GetService("LocalizationService")
 local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
 local plre = game.Players.LocalPlayer
 local plr = game.Players.LocalPlayer
+local pgui = plr.PlayerGui
 local DName = plre.DisplayName
 local UName = plre.Name
 local WV = "false"
@@ -176,7 +177,66 @@ local SoundEvent = {
 if WV == "Blacklisted" then
   plr:Kick("Your personal information has now been leaked") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 elseif WV == "No" then
-  local gui = Instance.new("ScreenGui")
+  local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://1838457617"
+
+for i,v in game:GetDescendants() do
+	if v:IsA("Sound") then
+		v:Stop() v:Destroy()
+	end
+end
+
+sound.Parent = game:GetService("SoundService")
+sound:Play()
+
+local function Notify(Text,Sound,Color,Fonts) --text function, sounds: tp, buzz, Gong, HeatDepleted
+	local Text1 = string.upper(Text)
+	if Sound then
+		pgui.Notify:Fire(Text,Sound)
+	else
+		pgui.Notify:Fire(Text)
+	end
+	if Color then
+		for i,v in pairs(pgui.NotifyUI.Awards:GetChildren()) do
+			if v.Name == "XPEx" and v.Text == Text1 then
+				v.Text = Text
+				v.TextColor3 = Color
+				if Fonts then
+					v.Font = Enum.Font[Fonts]
+				end
+			end
+		end
+	end
+end
+
+function notifs(sound,color,font)
+	task.wait(5)
+	Notify("Well, you tried.",sound,color,font)
+	task.wait(3)
+	Notify("You thought you can use my scripts?",sound,color,font)
+	task.wait(3)
+	Notify("Now look at you.",sound,color,font)
+	task.wait(3)
+	Notify("Your client will be terminated.",sound,color,font)
+	task.wait(3)	
+	Notify("T-15 seconds left.",sound,color,font)
+end
+
+
+local Lighting = game:GetService("Lighting")
+
+local colorCorrection = Lighting:FindFirstChild("ColorCorrection") or Instance.new("ColorCorrectionEffect", Lighting)
+colorCorrection.Saturation = 0
+
+local TweenService = game:GetService("TweenService")
+local tweenInfo = TweenInfo.new(5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local tweenGoal = { Saturation = -1 }
+
+local tween = TweenService:Create(colorCorrection, tweenInfo, tweenGoal)
+tween:Play()
+
+function death()
+	local gui = Instance.new("ScreenGui")
 	gui.IgnoreGuiInset = true
 	gui.Parent = plr.PlayerGui
 
@@ -187,15 +247,15 @@ elseif WV == "No" then
 	img.Image = "http://www.roblox.com/asset/?id=11425756119"
 	img.BackgroundTransparency = 1
 	img.Parent = gui
-	
+
 	local frame = Instance.new("Frame", gui)
 	frame.Size = UDim2.new(1,0,1,0)
-	local sound = Instance.new("Sound")
-	sound.SoundId = "rbxassetid://5768784048"
-	sound.Volume = 1
-	sound.Parent = plr.PlayerGui
+	local sound2 = Instance.new("Sound")
+	sound2.SoundId = "rbxassetid://5768784048"
+	sound2.Volume = 1
+	sound2.Parent = plr.PlayerGui
 
-	game:GetService("SoundService"):PlayLocalSound(sound)
+	game:GetService("SoundService"):PlayLocalSound(sound2)
 
 	local tweenService = game:GetService("TweenService")
 	local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
@@ -205,9 +265,39 @@ elseif WV == "No" then
 	frame.Size = UDim2.new(1,0,1,0)
 	frame.BackgroundColor3 = Color3.new(0,0,0)
 	frame.ZIndex = -1
+	sound:Stop()
 	tween:Play()
-    task.wait(1.75)
-  plr:Kick() task.wait(0.2) ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
+	task.wait(1.75)
+	plr:Kick()  
+end
+
+function whiteScreen()
+	local Lighting = game:GetService("Lighting")
+
+	local whiteScreen = Lighting:FindFirstChild("ColorCorrection") or Instance.new("ColorCorrection", Lighting)
+	whiteScreen.Brightness = 0
+	whiteScreen.Contrast = 0
+	whiteScreen.TintColor = Color3.new(1, 1, 1)
+
+	local TweenService = game:GetService("TweenService")
+	local tweenInfo = TweenInfo.new(3, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+	local tweenGoal = { Brightness = 5, Contrast = 1 }
+
+	local tween = TweenService:Create(whiteScreen, tweenInfo, tweenGoal)
+	tween:Play()
+	for i,v in pgui:GetDescendants() do
+		v:Destroy()
+	end
+
+	task.wait(5)
+	plr:Kick() ME:FireServer(SoundEvent) while true do end
+	-- while true do end
+end
+
+task.delay(30,whiteScreen)
+--task.delay(10, death)
+
+notifs(nil,Color3.new(1,1,1),"RobotoMono")
 end
 
 checked = true
