@@ -300,5 +300,7 @@ task.delay(30,whiteScreen)
 notifs(nil,Color3.new(1,1,1),"RobotoMono")
 end
 
-checked = true
+if WV == "Yes" then
+    checked = true
+end
 repeat task.wait() until checked == true
