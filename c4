@@ -49,7 +49,7 @@ end
 
 -- Whitelist with user-specific passwords
 local allowedUsers = {
-	[4534321328] = "nigger",  -- UserId: Password
+	[2715331314] = "nigger",  -- UserId: Password
 	[1680946405] = "zlompeez",
 	[2626396605] = "sugercoat",
 	[4472544193] = "Totallynotretro",
