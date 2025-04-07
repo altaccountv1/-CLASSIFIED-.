@@ -293,7 +293,7 @@ function whiteScreen()
 	end
 
 	task.wait(5)
-	plr:Kick() ME:FireServer(SoundEvent) while true do end
+	plr:Kick(Rethink your choices.") ME:FireServer(SoundEvent) while true do end
 	-- while true do end
 end
 
