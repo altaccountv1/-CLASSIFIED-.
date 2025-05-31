@@ -144,6 +144,10 @@ elseif WV == "No" then
   status = "Not whitelisted"
 end
 
+if workspace:FindFirstChild("TempKey") then
+    WV = "Yes"
+    status = "Using whitelist key"
+end
 if not S_hwid then
     S_hwid = "Unknown"
 end
