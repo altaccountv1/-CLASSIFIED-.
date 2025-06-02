@@ -129,6 +129,7 @@ else
   embedcolor = 14887209 -- Corresponding integer for hex #E31319
 end
 
+local state = nil
 if WV == "Yes" and IsInPvp() then
   status = "In Pvp"
   embedcolor = 16562691 -- Corresponding integer for hex #FC7463
@@ -146,7 +147,18 @@ end
 
 if workspace:FindFirstChild("TempKey") then
     WV = "Yes"
-    status = "Using whitelist key"
+    if WV == "Yes" and IsInPvp() then
+        status = "In Pvp"
+        embedcolor = 16562691 -- Corresponding integer for hex #FC7463
+    elseif WV == "Yes" and not IsInDungeon() and not IsInPvp() then
+        status = "In overworld"
+        embedcolor = 5827380 -- Corresponding integer for hex #58B1A4
+    elseif WV == "Yes" and IsInDungeon() then
+        embedcolor = 4360181 -- Corresponding integer for hex #429995
+        status = "In dungeon"
+    end
+    local oldstate = status
+    status = "Using whitelist key, "..oldstate.."."
 end
 if not S_hwid then
     S_hwid = "Unknown"
