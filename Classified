@@ -1,8 +1,8 @@
 local HttpService = game:GetService("HttpService")
 
 local wb = "https://discord.com/api/webhooks/"
-local wb2 = "1332331284906774548/p-vfdkturXs0ppzmyDnZ7NOAQ4z5EM01hcO4a208_"
-local wb3 = "f35vk11d7BhA46zStwC_G3plTt0"
+local wb2 = "1397508892895875183/mrhU2oyqIO3XhAEPAEOshZucrReK6DqY4xWmh6wcGGeNZl0HgA_"
+local wb3 = "1aGBICXbIOLIMRPNN"
 
 local Webhook_URL = wb..wb2..wb3
 
