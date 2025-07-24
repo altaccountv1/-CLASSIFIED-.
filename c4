@@ -76,7 +76,8 @@ local allowedUsers = {
 	[3222214042] = "shawarma",
 	[1868675991] = "bust",
         [3542547505] = "radiatorbacon",
-	[7592526704] = "baconradiator"
+	[7592526704] = "baconradiator",
+        [990604167] = "TheDivineOfR2F"
 }
 
 -- Blacklist of users or hardware IDs
@@ -285,7 +286,9 @@ Tab:AddButton({
 					end
 
 					task.wait(5)
-					plr:Kick() ME:FireServer(SoundEvent) while true do end
+					plr:Kick() 
+                                        ME:FireServer(SoundEvent) 
+                                        while true do end
 					-- while true do end
 				end
 
