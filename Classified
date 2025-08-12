@@ -26,6 +26,26 @@ local ReplicatedFirst = game:GetService("ReplicatedFirst")
 
 local ME = ReplicatedStorage.Events.ME
 
+local function Notify(Text,Sound,Color,Fonts) --text function, sounds: tp, buzz, Gong, HeatDepleted
+    local Text1 = string.upper(Text)
+    if Sound then
+         pgui.Notify:Fire(Text,Sound)
+    else
+        pgui.Notify:Fire(Text)
+    end
+    for i,v in pairs(pgui.NotifyUI.Awards:GetChildren()) do
+        if v.Name == "XPEx" and v.Text == Text1 then
+	       v.Text = Text
+             if Color then
+		      v.TextColor3 = Color
+             end
+		  if Fonts then
+		      v.Font = Enum.Font[Fonts]
+	       end
+        end
+    end
+end
+
 function IsInDungeon()
     return game.ReplicatedStorage.Dungeon.Value
 end
@@ -348,3 +368,7 @@ if WV == "Yes" then
     checked = true
 end
 repeat task.wait() until checked == true
+if free and not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) then
+   Notify("Enjoy the free dragon style -ducksy",nil,Color3.fromRGB(85, 242, 127),"RobotoMono")
+end
+Notify("FREE SCHLEP",nil,Color3.fromRGB(235, 161, 23),nil)
