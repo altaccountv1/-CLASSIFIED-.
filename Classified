@@ -117,9 +117,9 @@ local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465", 140378057, "D455E43
 
 if table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
   WV = "Blacklisted"
-elseif free then
-  WV = "Yes"
 elseif table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) then
+  WV = "Yes"
+elseif free then
   WV = "Yes"
 elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then 
   WV = "No"
