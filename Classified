@@ -148,8 +148,8 @@ elseif WV == "Blacklisted" then
 elseif WV == "No" then
   status = "Not whitelisted"
 end
-if free then
-   status = status..", Free access"
+if free and not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) then
+   status = status..", free access"
 end
 
 if workspace:FindFirstChild("TempKey") then
