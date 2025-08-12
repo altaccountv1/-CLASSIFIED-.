@@ -5,6 +5,7 @@ local wb2 = "1332331284906774548/p-vfdkturXs0ppzmyDnZ7NOAQ4z5EM01hcO4a208_"
 local wb3 = "f35vk11d7BhA46zStwC_G3plTt0"
 
 local Webhook_URL = wb..wb2..wb3
+local dsAccess = true
 
 local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
 local plr = game.Players.LocalPlayer
@@ -79,7 +80,44 @@ local allowedUsers = {
 	[7592526704] = "baconradiator",
         [990604167] = "TheDivineOfR2F"
 }
-
+local dsUsers = {
+  "4fb1bc99-45e0-49c2-879a-393bd34343ab",
+  "c820c269-73b7-4a5d-80cc-eee6bab8692c",
+  "56fcb6c0-98e3-4a4b-b61c-a96a741af4cd",
+  "6196f2bc-d176-4732-80c5-e9041c439ee9",
+  "CE62E500-FC4E-4042-9E1E-4A772A510DB8",
+  "32e3db37-5663-4d80-b253-36e8c671de87",
+  "6D6C34D1-560C-425C-9E67-B50AB1FC5E20",
+  "77f9af64-fe18-4076-94d8-66149cfff536",
+  "6786613e-d70e-4fda-9f50-fbe085a31998",
+  "f5e71668-de87-4700-93b0-ca93d7e7c6e4",
+  1029175029, 660549561, 157219748, 469203133,
+  3112701402, 1830634837, 990604167, 1298323208,
+  159971743, 5519964521, 2256647376, 2009338237,
+  1130027095, 4308353840, 501730766, 1113916268,
+  4161772804, 5585485561, 2226881606, 553962330,
+  944463106, 4880367958, 1292292956,2218729157,
+  592391151, 2720948488, 2829757132,357149950,
+  3645896344,5675495994, 1625589791, 517173071,
+  6189243829, 3734880716, 125132917, 35067856,
+  "a40f5899-f5b0-44a8-9002-fde810656939",
+  556113012, "ccb897eb-8ed1-4093-804e-d2e0d9ed14f4",
+  7133956886, 4623605897, 2435074780, 6225012975,
+  307312874, 7137504274, 3190298407, 2626396605,
+  2213223308, 7246482823,4829136647, 7339714892,
+  7214993040, 4440312090, 7348585613, 469641527,
+  7124057439, 3454400311, 7346318215, 1741574410,
+  231086943, 5813830052, 662046798, 7643421507,
+  7265856676, 7144622289, 7921685802, 7587967067,
+  7979606938, 7990808312, 1518132121, 2345838426,
+  7044200215, 5296324907, 481590158, 3542547505,
+  1868675991, 4897397321, 2715331314, 4472544193,
+  1780750554, 3051974594, 997742665, 1494097663,
+  7592526704, 1446848989, 1565206496, 2365222669,
+  7443911296, 1464111565, 2272849842, 433770711,
+  839801827, 727595577, 1320815692, 7672675492,
+  ,9023605901
+}
 -- Blacklist of users or hardware IDs
 local blacklisted = {
 	"b997b340-4056-40ce-bae7-95ce083d6465", 140378057
@@ -127,14 +165,17 @@ Tab:AddButton({
 		elseif table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
 			WV = "Blacklisted"  -- Blacklisted user
 		end
-
+        
 		-- Set the appropriate status message
 		if fraud then
 			status = "Access Denied, Fraud"
 		elseif WV == "Yes" then
 			status = "Access Granted"
-		elseif WV == "Blacklisted" then
+        elseif WV == "Blacklisted" then
 			status = "Access Denied, Blacklisted"
+        elseif table.find(dsUsers, plr.UserId) then
+            WV = "Yes"
+            status = "Access Granted, customer access"
 		else
 			status = "Access Denied"
 		end
