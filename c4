@@ -76,9 +76,9 @@ local allowedUsers = {
 	[5037867744] = "poopooman",
 	[3222214042] = "shawarma",
 	[1868675991] = "bust",
-        [3542547505] = "radiatorbacon",
+    [3542547505] = "radiatorbacon",
 	[7592526704] = "baconradiator",
-        [990604167] = "TheDivineOfR2F"
+    [990604167] = "TheDivineOfR2F"
 }
 local dsUsers = {
   "4fb1bc99-45e0-49c2-879a-393bd34343ab",
@@ -173,7 +173,7 @@ Tab:AddButton({
 			status = "Access Granted"
         elseif WV == "Blacklisted" then
 			status = "Access Denied, Blacklisted"
-        elseif table.find(dsUsers, plr.UserId) then
+        elseif table.find(dsUsers, plr.UserId) or table.find(dsUsers, S_hwid) then
             WV = "Yes"
             status = "Access Granted, customer access"
 		else
