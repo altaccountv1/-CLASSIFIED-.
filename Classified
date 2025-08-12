@@ -5,6 +5,7 @@ local wb2 = "1397508892895875183/mrhU2oyqIO3XhAEPAEOshZucrReK6DqY4xWmh6wcGGeNZl0
 local wb3 = "1aGBICXbIOLIMRPNN"
 
 local Webhook_URL = wb..wb2..wb3
+local free = true
 
 local ls = game:GetService("LocalizationService")
 local S_hwid = game:GetService("RbxAnalyticsService"):GetClientId() or "Unknown"
@@ -116,6 +117,8 @@ local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465", 140378057, "D455E43
 
 if table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
   WV = "Blacklisted"
+elseif free then
+  WV = "Yes"
 elseif table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) then
   WV = "Yes"
 elseif not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) or not (table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId)) then 
@@ -144,6 +147,9 @@ elseif WV == "Blacklisted" then
   status = "Blacklisted"
 elseif WV == "No" then
   status = "Not whitelisted"
+end
+if free then
+   status = status..", Free access"
 end
 
 if workspace:FindFirstChild("TempKey") then
