@@ -137,12 +137,18 @@ local greenBeans = {
     "C90EFA83-FBC3-47CA-94F7-4AF1DB89C8D0"
 }
 
+local spammers = {
+    "2133feee-2ddc-4d55-8918-cccf37cd66d4"
+}
+
 local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465", 140378057, "D455E437-9E2E-4B03-976E-72B19172B044"}
 
 if table.find(blacklisted, S_hwid) or table.find(blacklisted, plr.UserId) then
   WV = "Blacklisted"
 elseif table.find(greenBeans, S_hwid) or table.find(greenBeans, plr.UserId) then
   WV = "Green bean"
+elseif table.find(spammers, S_hwid) or table.find(spammers, plr.UserId) then
+  WV = "Spamming"
 elseif table.find(allowed, S_hwid) or table.find(allowed, plr.UserId) then
   WV = "Yes"
 elseif free then
@@ -174,12 +180,18 @@ elseif WV == "Blacklisted" then
 elseif WV == "No" then
   status = "Not whitelisted"
 end
+
 if free and not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) then
    status = status..", free access"
 end
 if WV == "Green bean" then
    status = "Green bean, blacklisted"
 end
+
+if WV == "Spamming" then
+   status = "Spammer, blacklisted"
+end
+
 if workspace:FindFirstChild("TempKey") then
     WV = "Yes"
     if WV == "Yes" and IsInPvp() then
@@ -250,6 +262,12 @@ if WV == "Blacklisted" then
   plr:Kick("Your personal information has now been leaked") ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 elseif WV == "Green bean" then
   Notify("Green beans are blacklisted from this script","buzz",nil,nil)
+  task.wait(5)
+  plr:Kick("You are blacklisted for a day.")
+  task.wait(3)
+  ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
+elseif WV == Spamming" then
+  Notify("Refrain from spam-executing my script.","buzz",nil,nil)
   task.wait(5)
   plr:Kick("You are blacklisted for a day.")
   task.wait(3)
