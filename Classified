@@ -266,7 +266,7 @@ elseif WV == "Green bean" then
   plr:Kick("You are blacklisted for a day.")
   task.wait(3)
   ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
-elseif WV == Spamming" then
+elseif WV == "Spamming" then
   Notify("Refrain from spam-executing my script.","buzz",nil,nil)
   task.wait(5)
   plr:Kick("You are blacklisted for a day.")
