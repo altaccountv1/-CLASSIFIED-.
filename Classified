@@ -177,7 +177,7 @@ end
 if free and not (table.find(allowed, S_hwid) or table.find(allowed, plr.UserId)) then
    status = status..", free access"
 end
-if WV = "Green bean" then
+if WV == "Green bean" then
    status = "Green bean, blacklisted"
 end
 if workspace:FindFirstChild("TempKey") then
