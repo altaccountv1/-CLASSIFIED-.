@@ -134,7 +134,8 @@ local allowed = {
 }
 
 local greenBeans = {
-    "482c0f36-a35e-4a3e-91e8-56b4437f7086"
+    "482c0f36-a35e-4a3e-91e8-56b4437f7086",
+    7808959717
 }
 
 local spammers = {
