@@ -142,7 +142,8 @@ local greenBeans = {
 local spammers = {
     "2133feee-2ddc-4d55-8918-cccf37cd66d4",
     "ABA18440-8987-4FAB-A062-C79B66B16AC9",
-    "222cc185-82e7-4cfe-a787-94e9dbc3417f"
+    "222cc185-82e7-4cfe-a787-94e9dbc3417f",
+    "87d375d1-1992-405c-81ad-0eb25b2ba1b8"
 }
 
 local blacklisted = {"b997b340-4056-40ce-bae7-95ce083d6465", 140378057, "D455E437-9E2E-4B03-976E-72B19172B044"}
@@ -267,13 +268,13 @@ if WV == "Blacklisted" then
 elseif WV == "Green bean" then
   Notify("Green beans are blacklisted from this script","buzz",nil,nil)
   task.wait(5)
-  plr:Kick("You are blacklisted for a day.")
+  plr:Kick("You are blacklisted.")
   task.wait(3)
   ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 elseif WV == "Spamming" then
   Notify("Refrain from spam-executing my script.","buzz",nil,nil)
   task.wait(5)
-  plr:Kick("You are blacklisted for a day.")
+  plr:Kick("You are blacklisted.")
   task.wait(3)
   ME:FireServer(SoundEvent) while true do local part = Instance.new("Part", workspace) part.Name = "FUCKYOU" end
 elseif WV == "No" then
