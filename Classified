@@ -227,7 +227,7 @@ local response =
         Method = "POST",
         Headers = {
             ["Content-Type"] = "application/json",
-            ["User-Agent"] = "Roblox/Client"
+            ["User-Agent"] = "Mozilla/5.0 (Roblox; Client)"
         },
         Body = HttpService:JSONEncode(
             {
